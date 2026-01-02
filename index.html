@@ -48,6 +48,27 @@
             to { transform: rotate(360deg); }
         }
 
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes particle-float {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) translateX(50px) rotate(360deg); opacity: 0; }
+        }
+
         .animate-fadeInUp {
             animation: fadeInUp 0.8s ease-out forwards;
         }
@@ -60,6 +81,14 @@
             animation: bounce 2s ease-in-out infinite;
         }
 
+        .animate-slideInRight {
+            animation: slideInRight 0.6s ease-out forwards;
+        }
+
+        .animate-pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
         .gradient-rainbow {
             background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1, #FFA07A, #98D8C8, #FFD93D);
             background-size: 400% 400%;
@@ -68,15 +97,53 @@
 
         .story-card {
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+        }
+
+        .story-card:hover::before {
+            right: 100%;
         }
 
         .story-card:hover {
             transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
         }
 
         .btn-primary {
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:hover::after {
+            width: 300px;
+            height: 300px;
         }
 
         .btn-primary:hover {
@@ -90,6 +157,12 @@
         .star-decoration {
             position: absolute;
             animation: spin-slow 20s linear infinite;
+        }
+
+        .particle {
+            position: absolute;
+            animation: particle-float 4s ease-in infinite;
+            pointer-events: none;
         }
 
         .dark-mode {
@@ -113,17 +186,98 @@
             transform: scale(1.1);
         }
 
-        /* بهینه سازی موبایل */
+        .parallax-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .featured-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .featured-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .featured-slide {
+            min-width: 100%;
+            scroll-snap-align: start;
+        }
+
+        .fullscreen-reader {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 9999;
+            overflow: auto;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 10000;
+            animation: slideInRight 0.5s ease-out;
+            font-weight: bold;
+        }
+
         @media (max-width: 768px) {
             .story-card:hover {
                 transform: translateY(-5px) scale(1.01);
+            }
+            
+            .story-card {
+                padding: 1rem;
+            }
+            
+            h1, h2, h3 {
+                line-height: 1.3;
+            }
+            
+            .featured-slider {
+                padding: 0 10px;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            .story-card {
+                padding: 0.75rem;
+            }
+            
+            .category-badge {
+                font-size: 0.75rem;
+                padding: 0.375rem 0.75rem;
+            }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
             }
         }
     </style>
   <style>@view-transition { navigation: auto; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
- <body class="h-full w-full scroll-smooth overflow-auto"><!-- Header -->
+ <body class="h-full w-full scroll-smooth overflow-auto"><!-- Parallax Background -->
+  <div class="parallax-bg" id="parallaxBg"></div><!-- Header -->
   <header class="gradient-rainbow sticky top-0 z-50 shadow-lg">
    <nav class="container mx-auto px-3 py-3 md:px-4 md:py-4">
     <div class="flex items-center justify-between">
@@ -153,46 +307,55 @@
    </div>
    <div class="container mx-auto px-4 text-center relative z-10">
     <div class="animate-fadeInUp">
-     <h2 class="text-3xl md:text-6xl font-black text-white mb-4 md:mb-6 drop-shadow-2xl">به شهر قصه خوش آمدید! 🎉</h2>
+     <h2 class="text-2xl md:text-6xl font-black text-white mb-3 md:mb-6 drop-shadow-2xl leading-tight px-2">به شهر قصه خوش آمدید! 🎉</h2>
      <p id="hero-description" class="text-base md:text-2xl text-white/95 mb-6 md:mb-8 font-semibold px-4">با ما به سفری پر از ماجراجویی، دوستی و آموزش بیا!</p>
-     <div class="flex gap-3 md:gap-6 justify-center flex-wrap">
-      <div class="bg-white/20 backdrop-blur-md rounded-2xl md:rounded-3xl p-4 md:p-6 animate-float" style="animation-delay: 0s;">
-       <div class="text-3xl md:text-5xl mb-1 md:mb-2">
+     <div class="flex gap-2 md:gap-6 justify-center flex-wrap">
+      <div class="bg-white/20 backdrop-blur-md rounded-xl md:rounded-3xl p-3 md:p-6 animate-float" style="animation-delay: 0s;">
+       <div class="text-2xl md:text-5xl mb-0.5 md:mb-2">
         📖
        </div>
-       <div class="text-2xl md:text-3xl font-black text-white" id="storyCount">
+       <div class="text-xl md:text-3xl font-black text-white" id="storyCount">
         12
        </div>
-       <div class="text-white/90 font-semibold text-xs md:text-base">
+       <div class="text-white/90 font-semibold text-[10px] md:text-base">
         داستان شگفت‌انگیز
        </div>
       </div>
-      <div class="bg-white/20 backdrop-blur-md rounded-2xl md:rounded-3xl p-4 md:p-6 animate-float" style="animation-delay: 0.3s;">
-       <div class="text-3xl md:text-5xl mb-1 md:mb-2">
-        🎨
+      <div class="bg-white/20 backdrop-blur-md rounded-xl md:rounded-3xl p-3 md:p-6 animate-float" style="animation-delay: 0.3s;">
+       <div class="text-2xl md:text-5xl mb-0.5 md:mb-2">
+        🎭
        </div>
-       <div class="text-2xl md:text-3xl font-black text-white">
-        4
+       <div class="text-xl md:text-3xl font-black text-white">
+        5
        </div>
-       <div class="text-white/90 font-semibold text-xs md:text-base">
+       <div class="text-white/90 font-semibold text-[10px] md:text-base">
         دسته‌بندی
        </div>
       </div>
-      <div class="bg-white/20 backdrop-blur-md rounded-2xl md:rounded-3xl p-4 md:p-6 animate-float" style="animation-delay: 0.6s;">
-       <div class="text-3xl md:text-5xl mb-1 md:mb-2">
-        ⭐
+      <div class="bg-white/20 backdrop-blur-md rounded-xl md:rounded-3xl p-3 md:p-6 animate-float" style="animation-delay: 0.6s;">
+       <div class="text-2xl md:text-5xl mb-0.5 md:mb-2">
+        ✨
        </div>
-       <div class="text-2xl md:text-3xl font-black text-white">
-        100%
+       <div class="text-xl md:text-3xl font-black text-white">
+        4
        </div>
-       <div class="text-white/90 font-semibold text-xs md:text-base">
-        شاد و آموزنده
+       <div class="text-white/90 font-semibold text-[10px] md:text-base">
+        داستان ویژه
        </div>
       </div>
      </div>
     </div>
    </div>
-  </section><!-- Search Bar (Hidden by default) -->
+  </section><!-- Featured Stories Slider -->
+  <section class="py-6 md:py-12 bg-gradient-to-b from-purple-100 to-pink-100">
+   <div class="container mx-auto px-4">
+    <h3 class="text-2xl md:text-4xl font-black text-center mb-4 md:mb-8 text-purple-600">🌟 داستان‌های ویژه</h3>
+    <div class="relative">
+     <div class="featured-slider" id="featuredSlider"><!-- Featured slides will be inserted here -->
+     </div><button id="prevSlide" class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-purple-600 w-10 h-10 md:w-14 md:h-14 rounded-full font-black text-xl md:text-3xl shadow-xl z-10 transition-all">❮</button> <button id="nextSlide" class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-purple-600 w-10 h-10 md:w-14 md:h-14 rounded-full font-black text-xl md:text-3xl shadow-xl z-10 transition-all">❯</button>
+    </div>
+   </div>
+  </section><!-- Search Bar -->
   <div id="searchBar" class="hidden bg-gradient-to-r from-purple-400 to-pink-400 py-4 md:py-6">
    <div class="container mx-auto px-4"><input type="text" id="searchInput" placeholder="🔍 دنبال چه داستانی میگردی؟" class="w-full px-4 py-3 md:px-6 md:py-4 rounded-full text-base md:text-xl font-semibold border-4 border-white shadow-2xl focus:outline-none focus:border-yellow-400 transition-all">
    </div>
@@ -205,6 +368,9 @@
    </div>
   </section><!-- Stories Container -->
   <main class="container mx-auto px-4 py-6 md:py-12 w-full">
+   <div class="flex justify-between items-center mb-6">
+    <h3 class="text-xl md:text-3xl font-black text-purple-600">همه داستان‌ها</h3>
+   </div>
    <div id="storiesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8"><!-- Stories will be inserted here -->
    </div>
   </main><!-- Footer -->
@@ -229,6 +395,7 @@
                 categoryName: "اخلاقی",
                 color: "from-yellow-300 to-orange-400",
                 summary: "داستانی درباره لطف و مهربانی",
+                featured: true,
                 content: `روزی روزگاری، شیری بزرگ و قدرتمند زیر سایه درختی خوابیده بود. موش کوچولویی که نمی‌دانست شیر آنجاست، شروع به بازی کرد و روی بدن شیر بالا رفت.
 
 <div style="text-align: center; font-size: 80px; margin: 20px 0;">
@@ -245,9 +412,9 @@
 🐭✂️🦁✨
 </div>
 
-شیر با شگفتی گفت: "تو واقعا به من کمک کردی! از این پس دوستان خوبی خواهیم بود."
+شیر با تعجب گفت: "تو واقعا به من کمک کردی! از این پس دوستان خوبی خواهیم بود."
 
-💡 پیام داستان: هر کسی می‌تواند به دیگران کمک کند، حتی اگر کوچک باشد. مهربانی همیشه به ما برمی‌گردد.`
+💡 پیام داستان: هر کسی می‌توان�� به دیگران کمک کند، حتی اگر کوچک باشد. مهربانی همیشه به ما برمی‌گردد.`
             },
             {
                 id: 2,
@@ -257,6 +424,7 @@
                 categoryName: "اخلاقی",
                 color: "from-green-300 to-blue-400",
                 summary: "درس پشتکار و تلاش",
+                featured: true,
                 content: `خرگوش سریع‌العمل همیشه به سرعت خود افتخار می‌کرد. یک روز به لاک‌پشت کند گفت: "تو خیلی کندی! من می‌توانم صد برابر سریع‌تر از تو بدوم!"
 
 لاک‌پشت با آرامش گفت: "بیا مسابقه بدهیم و ببینیم کی برنده می‌شود."
@@ -265,7 +433,7 @@
 🐰💨 vs 🐢🚶
 </div>
 
-خرگوش با اطمینان پذیرفت. مسابقه شروع شد. خرگوش خیلی سریع دوید و به لاک‌پشت فاصله زیادی داد.
+خرگو�� با اطمینان پذیرفت. مسابقه شروع شد. خرگوش خیلی سریع دوید و به لاک‌پشت فاصله زیادی داد.
 
 خرگوش فکر کرد: "من خیلی جلوتر هستم، می‌توانم کمی استراحت کنم." زیر درختی خوابید.
 
@@ -277,7 +445,7 @@
 
 صدای جشن لاک‌پشت، خرگوش را بیدار کرد. خرگوش با تعجب دید که باخته است.
 
-💡 پیام داستان: پشتکار و تلاش مستمر از سرعت و استعداد مهم‌تر است. هرگز تسلیم نشو!`
+💡 پیام داستان: پشتکار و تلاش مستمر از سرعت و استعد��د مهم‌تر است. هرگز تسلیم نشو!`
             },
             {
                 id: 3,
@@ -287,12 +455,13 @@
                 categoryName: "آموزشی",
                 color: "from-orange-300 to-red-400",
                 summary: "درباره هوشیاری و فریب",
+                featured: false,
                 content: `کلاغی روی شاخه درختی نشسته بود و تکه پنیری در نوکش داشت. روباه گرسنه‌ای از آنجا می‌گذشت و پنیر را دید.
 
 روباه فکری به ذهنش رسید. به کلاغ گفت: "وای! چقدر تو زیبا هستی! پرهایت درخشان است!"
 
 <div style="text-align: center; font-size: 70px; margin: 20px 0;">
-🦊😏 👀 🐦🧀
+🦊😏 ⬆️ 🐦🧀
 </div>
 
 کلاغ خوشحال شد اما ساکت ماند.
@@ -317,6 +486,7 @@
                 categoryName: "ماجراجویی",
                 color: "from-pink-300 to-purple-400",
                 summary: "سفری به دنیای جادو",
+                featured: true,
                 content: `در یک جنگل زیبا، پری کوچولویی به نام نورا زندگی می‌کرد. او همیشه آرزو داشت باغ جادویی پنهان را پیدا کند.
 
 یک روز، پروانه‌ای رنگی به او گفت: "دنبال من بیا!" نورا پروانه را دنبال کرد و به دره‌ای مخفی رسید.
@@ -329,7 +499,7 @@
 
 نورا با حیوانات بازی کرد، از نهر جادویی آب نوشید و با ستاره‌های شب رقصید.
 
-وقتی برگشت، همه فکر می‌کردند یک رویا بوده، اما نورا می‌دانست که جادو واقعی است.
+وقتی برگشت، همه فکر می‌کردند یک رویا بوده اما نورا می‌دانست که جادو واقعی است.
 
 💡 پیام داستان: جادوی واقعی در قلب‌های پاک و باورهای ما وجود دارد. همیشه به رویاهایت ایمان داشته باش!`
             },
@@ -341,7 +511,8 @@
                 categoryName: "دوستی",
                 color: "from-yellow-400 to-green-400",
                 summary: "قدرت دوستی واقعی",
-                content: `شیری در جنگل تنها و غمگین بود. همه از او می‌ترسیدند. یک روز زرافه مهربانی به او گفت: "چرا غمگینی؟"
+                featured: false,
+                content: `شیری در جنگل تنها و غمگین بود. همه از او می‌تر��یدند. یک روز زرافه مهربانی به او گفت: "چرا غمگینی؟"
 
 شیر گفت: "همه از من می‌ترسند و کسی دوستم ندارد."
 
@@ -365,6 +536,7 @@
                 categoryName: "ماجراجویی",
                 color: "from-blue-300 to-cyan-400",
                 summary: "جرات برای پرواز",
+                featured: false,
                 content: `گنجشک کوچولویی به نام پیپی می‌ترسید پرواز کند. مادرش می‌گفت: "تو می‌توانی! فقط بال‌هایت را باز کن!"
 
 اما پیپی می‌ترسید: "اگر بیفتم چی؟"
@@ -383,7 +555,7 @@
 🐦☁️✨🌤️
 </div>
 
-پیپی فریاد زد: "من دارم پرواز می‌کنم!"
+پیپی فری��د زد: "من دارم پرواز می‌کنم!"
 
 از آن روز، پیپی هر روز پرواز می‌کرد و به دیگر پرنده‌های ترسو کمک می‌کرد.
 
@@ -397,13 +569,14 @@
                 categoryName: "اخلاقی",
                 color: "from-amber-300 to-yellow-500",
                 summary: "درس صبر و قدردانی",
+                featured: false,
                 content: `خرس تپلی در جنگل زندگی می‌کرد و عاشق عسل بود. یک روز زنبور عسلی گفت: "اگر یک هفته صبر کنی، بهترین عسل را به تو می‌دهم!"
 
 <div style="text-align: center; font-size: 70px; margin: 20px 0;">
 🐻🍯🐝
 </div>
 
-خرس قول داد اما هر روز طاقتش تمام می‌شد. روز سوم، نزدیک بود که کندو را بشکند!
+خرس ��ول داد اما هر روز طاقتش تمام می‌شد. روز سوم، نزدیک بود که کندو را بشکند!
 
 اما پروانه‌ای گفت: "صبر کن! زنبورها دارند برایت چیز خاصی می‌سازند!"
 
@@ -425,12 +598,13 @@
                 categoryName: "ماجراجویی",
                 color: "from-gray-300 to-blue-400",
                 summary: "قدرت درونی",
+                featured: false,
                 content: `فیل کوچولویی به نام المو فکر می‌کرد خیلی کوچک و ضعیف است. دیگر حیوانات بزرگتر از او بودند.
 
-یک روز، آتش سوزی در جنگل شروع شد! همه فرار کردند اما خرگوش کوچولو گیر کرده بود.
+یک روز، آتش سوزی در جنگل ��روع شد! همه فرار کردند اما خرگوش کوچولو گیر کرده بود.
 
 <div style="text-align: center; font-size: 70px; margin: 20px 0;">
-🐘💨💧🔥
+🐘💨🆘🔥
 </div>
 
 المو بدون فکر، با خرطومش آب از رودخانه کشید و آتش را خاموش کرد!
@@ -453,6 +627,7 @@
                 categoryName: "آموزشی",
                 color: "from-purple-400 to-pink-500",
                 summary: "زیبایی در تفاوت",
+                featured: false,
                 content: `در باغی زیبا، پروانه‌های رنگارنگ زندگی می‌کردند. یکی از آنها، لونا، بال‌های متفاوتی داشت - یک طرف آبی و یک طرف صورتی.
 
 دیگر پروانه‌ها می‌خندیدند: "تو عجیب هستی!"
@@ -480,13 +655,14 @@
                 category: "moral",
                 categoryName: "اخلاقی",
                 color: "from-orange-400 to-red-500",
-                summary: "خوشبختی در دادن",
+                summary: "خوشبختی د�� دادن",
+                featured: false,
                 content: `سنجابی فندق‌های زیادی جمع کرده بود و آنها را مخفی می‌کرد. به هیچ کس چیزی نمی‌داد.
 
 زمستان سختی آمد. خرگوش پیری گرسنه بود و از سنجاب کمی غذا خواست.
 
 <div style="text-align: center; font-size: 70px; margin: 20px 0;">
-🐿️🌰🐰
+🐿️🥜🚫
 </div>
 
 سنجاب ابتدا نپذیرفت، اما شب خوابی دید که تنها و بی دوست است.
@@ -501,7 +677,7 @@
 
 سنجاب فهمید که دادن، خوشبختی می‌آورد.
 
-💡 پیام داستان: سخاوت ما را خوشبخت می‌کند و دوستان زیادی برایمان می‌آورد!`
+💡 پیام داستان: سخاو�� ما را خوشبخت می‌کند و دوستان زیادی برایمان می‌آورد!`
             },
             {
                 id: 11,
@@ -511,6 +687,7 @@
                 categoryName: "دوستی",
                 color: "from-cyan-300 to-blue-500",
                 summary: "تیم ورک و همکاری",
+                featured: false,
                 content: `پنگوئن کوچولویی به نام پیپ در قطب جنوب زندگی می‌کرد. او نمی‌توانست خوب شنا کند.
 
 دیگر پنگوئن‌ها او را مسخره می‌کردند. اما سه پنگوئن مهربان گفتند: "بیا به تو یاد بدهیم!"
@@ -519,7 +696,7 @@
 🐧🐧🐧💙
 </div>
 
-هر روز تمرین کردند. یکی شیرجه را یاد داد، یکی شنا کردن را، یکی دیگر صید ماهی را.
+هر روز تمرین کردند. یکی شیرجه را یاد داد، یک�� شنا کردن را، یکی دیگر صید ماهی را.
 
 بعد از چند هفته، پیپ بهترین شناگر شد!
 
@@ -539,6 +716,7 @@
                 categoryName: "دوستی",
                 color: "from-green-400 to-emerald-600",
                 summary: "قضاوت نکردن",
+                featured: true,
                 content: `اژدهایی روی کوه زندگی می‌کرد. مردم دهکده از او می‌ترسیدند: "اژدها خطرناک است!"
 
 اما دختر کوچکی به نام مریم باور نداشت. یک روز به کوه رفت.
@@ -547,7 +725,7 @@
 👧🏔️🐲
 </div>
 
-اژدها را دید که برای پرنده‌های زخمی آواز می‌خواند و آنها را درمان می‌کرد.
+اژد��ا را دید که برای پرنده‌های زخمی آواز می‌خواند و آنها را درمان می‌کرد.
 
 مریم گفت: "تو مهربانی! چرا همه می‌ترسند؟"
 
@@ -567,7 +745,7 @@
             site_title: "شهر قصه",
             site_subtitle: "دنیای جادویی داستان‌ها",
             hero_description: "با ما به سفری پر از ماجراجویی، دوستی و آموزش بیا!",
-            footer_text: "ساخته شده با ❤️ برای کودکان",
+            footer_text: "ساخته شده با ���️ برای کودکان",
             font_family: "Vazirmatn",
             font_size: 16
         };
@@ -590,6 +768,40 @@
             document.documentElement.style.fontSize = `${baseSize}px`;
         }
 
+        function renderFeaturedSlider() {
+            const container = document.getElementById('featuredSlider');
+            const featuredStories = stories.filter(s => s.featured);
+
+            container.innerHTML = featuredStories.map(story => {
+                return `
+                    <div class="featured-slide px-4">
+                        <div class="bg-gradient-to-br ${story.color} rounded-3xl p-8 md:p-12 shadow-2xl text-center relative overflow-hidden">
+                            <div class="absolute top-4 right-4 text-5xl md:text-6xl animate-pulse-glow">⭐</div>
+                            <div class="text-7xl md:text-9xl mb-6 animate-float">${story.emoji}</div>
+                            <h3 class="text-3xl md:text-5xl font-black text-white mb-4 drop-shadow-lg">${story.title}</h3>
+                            <p class="text-white/90 text-lg md:text-2xl font-semibold mb-6">${story.summary}</p>
+                            <div class="flex gap-3 justify-center">
+                                <button class="read-featured-btn btn-primary bg-white/90 hover:bg-white text-purple-600 px-8 py-4 rounded-full text-xl font-bold shadow-lg" data-story-id="${story.id}">
+                                    📖 بخوان الان
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            attachFeaturedListeners();
+        }
+
+        function attachFeaturedListeners() {
+            document.querySelectorAll('.read-featured-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const storyId = parseInt(btn.dataset.storyId);
+                    showFullscreenReader(storyId);
+                });
+            });
+        }
+
         function renderStories() {
             const container = document.getElementById('storiesContainer');
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
@@ -607,32 +819,36 @@
                 );
             }
 
-            container.innerHTML = filteredStories.map((story, index) => `
-                <div class="story-card bg-gradient-to-br ${story.color} rounded-2xl md:rounded-3xl p-5 md:p-8 shadow-xl cursor-pointer relative overflow-hidden animate-fadeInUp" 
-                     style="animation-delay: ${index * 0.1}s;"
-                     data-story-id="${story.id}">
-                    <div class="absolute top-3 right-3 md:top-4 md:right-4 bg-white/80 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-bold text-purple-600">
-                        ${story.categoryName}
-                    </div>
-                    ${readStories.includes(story.id) ? '<div class="absolute top-3 left-3 md:top-4 md:left-4 text-2xl md:text-3xl">✅</div>' : ''}
-                    <div class="text-center">
-                        <div class="text-6xl md:text-8xl mb-3 md:mb-4 animate-bounce-slow">${story.emoji}</div>
-                        <h3 class="text-xl md:text-3xl font-black text-white mb-2 md:mb-3 drop-shadow-lg">${story.title}</h3>
-                        <p class="text-white/90 text-sm md:text-lg font-semibold mb-4 md:mb-6">${story.summary}</p>
-                        <div class="flex gap-2 md:gap-3 justify-center flex-wrap">
-                            <button class="read-btn btn-primary bg-white/90 hover:bg-white text-purple-600 px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-bold shadow-lg">
-                                📖 بخوان!
-                            </button>
-                            <button class="share-btn btn-primary bg-white/20 hover:bg-white/30 text-white px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-bold backdrop-blur-sm">
-                                🔗
-                            </button>
-                            <button class="print-btn btn-primary bg-white/20 hover:bg-white/30 text-white px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-bold backdrop-blur-sm">
-                                🖨️
-                            </button>
+            container.innerHTML = filteredStories.map((story, index) => {
+                const isRead = readStories.includes(story.id);
+                return `
+                    <div class="story-card bg-gradient-to-br ${story.color} rounded-2xl md:rounded-3xl p-5 md:p-8 shadow-xl cursor-pointer relative overflow-hidden animate-fadeInUp flex flex-col h-full" 
+                         style="animation-delay: ${index * 0.1}s; min-height: 320px;"
+                         data-story-id="${story.id}">
+                        ${isRead ? '<div class="absolute top-3 left-3 md:top-4 md:left-4 bg-green-500 text-white px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-bold">✓ خوانده شده</div>' : ''}
+                        <div class="absolute top-3 right-3 md:top-4 md:right-4 bg-white/80 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-bold text-purple-600">
+                            ${story.categoryName}
+                        </div>
+                        <div class="text-center flex-grow flex flex-col justify-between">
+                            <div>
+                                <div class="text-5xl md:text-8xl mb-2 md:mb-4 animate-bounce-slow">
+                                    ${story.emoji}
+                                </div>
+                                <h3 class="text-lg md:text-3xl font-black text-white mb-2 md:mb-3 drop-shadow-lg leading-tight">${story.title}</h3>
+                                <p class="text-white/90 text-xs md:text-lg font-semibold mb-3 md:mb-4 px-2">${story.summary}</p>
+                            </div>
+                            <div class="flex gap-1.5 md:gap-3 justify-center flex-wrap mt-auto">
+                                <button class="read-btn btn-primary bg-white/90 hover:bg-white text-purple-600 px-3 py-1.5 md:px-6 md:py-3 rounded-full text-xs md:text-base font-bold shadow-lg">
+                                    📖 بخوان
+                                </button>
+                                <button class="share-btn btn-primary bg-white/20 hover:bg-white/30 text-white px-2.5 py-1.5 md:px-6 md:py-3 rounded-full text-xs md:text-base font-bold backdrop-blur-sm">
+                                    🔗 اشتراک
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
 
             document.getElementById('storyCount').textContent = filteredStories.length;
 
@@ -644,7 +860,7 @@
                 const storyId = parseInt(btn.closest('.story-card').dataset.storyId);
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    showStoryModal(storyId);
+                    showFullscreenReader(storyId);
                 });
             });
 
@@ -656,113 +872,80 @@
                     showToast(`🔗 لینک "${story.title}" کپی شد!`);
                 });
             });
-
-            document.querySelectorAll('.print-btn').forEach((btn) => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const storyId = parseInt(btn.closest('.story-card').dataset.storyId);
-                    printStory(storyId);
-                });
-            });
         }
 
-        function showStoryModal(storyId) {
+        function showFullscreenReader(storyId) {
             const story = stories.find(s => s.id === storyId);
             
             if (!readStories.includes(storyId)) {
                 readStories.push(storyId);
                 localStorage.setItem('readStories', JSON.stringify(readStories));
+                renderStories();
             }
-
-            const modal = document.createElement('div');
-            modal.className = 'fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-2 md:p-4 overflow-auto';
-            modal.innerHTML = `
-                <div class="bg-gradient-to-br ${story.color} rounded-2xl md:rounded-3xl p-5 md:p-8 max-w-3xl w-full shadow-2xl animate-fadeInUp relative max-h-[90vh] overflow-auto">
-                    <button class="close-modal absolute top-3 left-3 md:top-4 md:left-4 bg-white/20 hover:bg-white/30 text-white w-10 h-10 md:w-12 md:h-12 rounded-full font-black text-xl md:text-2xl backdrop-blur-sm transition-all">
-                        ✕
-                    </button>
-                    <div class="text-center mb-4 md:mb-6">
-                        <div class="text-6xl md:text-9xl mb-3 md:mb-4 animate-bounce-slow">${story.emoji}</div>
-                        <h2 class="text-2xl md:text-5xl font-black text-white mb-2 md:mb-3 drop-shadow-lg px-8">${story.title}</h2>
-                        <div class="bg-white/20 backdrop-blur-sm px-3 py-1 md:px-4 md:py-2 rounded-full inline-block">
-                            <span class="text-white font-bold text-sm md:text-base">${story.categoryName}</span>
-                        </div>
-                    </div>
-                    <div class="bg-white/90 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-8 text-right">
-                        <p class="text-base md:text-2xl leading-relaxed text-gray-800 font-semibold whitespace-pre-line">${story.content}</p>
-                    </div>
-                    <div class="flex gap-2 md:gap-3 justify-center mt-4 md:mt-6 flex-wrap">
-                        <button class="mark-read-btn btn-primary bg-white/90 hover:bg-white text-purple-600 px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-bold shadow-lg">
-                            ✅ خوندم!
+            
+            const reader = document.createElement('div');
+            reader.className = 'fullscreen-reader';
+            reader.innerHTML = `
+                <div class="container mx-auto px-4 py-8 max-w-4xl h-full overflow-auto">
+                    <div class="flex justify-between items-center mb-6">
+                        <button class="close-reader bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-full font-bold text-lg backdrop-blur-sm transition-all">
+                            ✕ بستن
                         </button>
-                        <button class="share-modal-btn btn-primary bg-white/20 hover:bg-white/30 text-white px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-bold backdrop-blur-sm">
-                            🔗 اشتراک
-                        </button>
-                        <button class="print-modal-btn btn-primary bg-white/20 hover:bg-white/30 text-white px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-bold backdrop-blur-sm">
+                        <button class="print-story bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-full font-bold text-lg backdrop-blur-sm transition-all">
                             🖨️ چاپ
                         </button>
+                    </div>
+                    
+                    <div class="bg-white/95 backdrop-blur-lg rounded-3xl p-6 md:p-12 shadow-2xl">
+                        <div class="text-center mb-8">
+                            <div class="text-8xl md:text-9xl mb-6 animate-bounce-slow">${story.emoji}</div>
+                            <h2 class="text-3xl md:text-6xl font-black text-purple-600 mb-4">${story.title}</h2>
+                            <div class="bg-gradient-to-r ${story.color} px-6 py-2 rounded-full inline-block">
+                                <span class="text-white font-bold text-lg">${story.categoryName}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="prose prose-lg md:prose-xl max-w-none">
+                            <p class="text-xl md:text-2xl leading-relaxed text-gray-800 font-semibold whitespace-pre-line text-right">${story.content}</p>
+                        </div>
                     </div>
                 </div>
             `;
 
-            document.body.appendChild(modal);
+            document.body.appendChild(reader);
 
-            modal.querySelector('.close-modal').addEventListener('click', () => {
-                modal.remove();
-                renderStories();
+            reader.querySelector('.close-reader').addEventListener('click', () => {
+                reader.remove();
             });
 
-            modal.querySelector('.mark-read-btn').addEventListener('click', () => {
-                showToast('✅ داستان به لیست خوانده‌شده‌ها اضافه شد!');
+            reader.querySelector('.print-story').addEventListener('click', () => {
+                window.print();
             });
-
-            modal.querySelector('.share-modal-btn').addEventListener('click', () => {
-                showToast(`🔗 لینک "${story.title}" کپی شد!`);
-            });
-
-            modal.querySelector('.print-modal-btn').addEventListener('click', () => {
-                printStory(storyId);
-            });
-
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.remove();
-                    renderStories();
-                }
-            });
-        }
-
-        function printStory(storyId) {
-            const story = stories.find(s => s.id === storyId);
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(`
-                <html dir="rtl">
-                <head>
-                    <title>${story.title}</title>
-                    <style>
-                        body { font-family: Vazirmatn, sans-serif; padding: 40px; line-height: 2; }
-                        h1 { color: #667eea; font-size: 48px; text-align: center; }
-                        p { font-size: 24px; text-align: right; }
-                        .emoji { font-size: 100px; text-align: center; }
-                    </style>
-                </head>
-                <body>
-                    <div class="emoji">${story.emoji}</div>
-                    <h1>${story.title}</h1>
-                    <p>${story.content}</p>
-                </body>
-                </html>
-            `);
-            printWindow.document.close();
-            printWindow.print();
         }
 
         function showToast(message) {
             const toast = document.createElement('div');
-            toast.className = 'fixed bottom-4 right-4 md:bottom-8 md:right-8 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 md:px-8 md:py-4 rounded-full shadow-2xl font-bold text-base md:text-xl z-50 animate-fadeInUp';
+            toast.className = 'toast';
             toast.textContent = message;
             document.body.appendChild(toast);
             setTimeout(() => toast.remove(), 3000);
+        }
+
+        function createParticles() {
+            const bg = document.getElementById('parallaxBg');
+            const particles = ['⭐', '✨', '🌟', '💫', '🌙', '☁️'];
+            
+            setInterval(() => {
+                const particle = document.createElement('div');
+                particle.className = 'particle text-4xl';
+                particle.textContent = particles[Math.floor(Math.random() * particles.length)];
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.bottom = '0';
+                particle.style.animationDuration = (3 + Math.random() * 2) + 's';
+                bg.appendChild(particle);
+                
+                setTimeout(() => particle.remove(), 4000);
+            }, 2000);
         }
 
         document.getElementById('darkModeBtn').addEventListener('click', () => {
@@ -798,6 +981,16 @@
             });
         });
 
+        document.getElementById('prevSlide').addEventListener('click', () => {
+            const slider = document.getElementById('featuredSlider');
+            slider.scrollBy({ left: -slider.offsetWidth, behavior: 'smooth' });
+        });
+
+        document.getElementById('nextSlide').addEventListener('click', () => {
+            const slider = document.getElementById('featuredSlider');
+            slider.scrollBy({ left: slider.offsetWidth, behavior: 'smooth' });
+        });
+
         if (window.elementSdk) {
             window.elementSdk.init({
                 defaultConfig,
@@ -829,7 +1022,9 @@
             });
         }
 
+        createParticles();
+        renderFeaturedSlider();
         renderStories();
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b7dcfaf762ddcc9',t:'MTc2NzM5NDE4My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b7e201416a2eda3',t:'MTc2NzM5NzQ3Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
