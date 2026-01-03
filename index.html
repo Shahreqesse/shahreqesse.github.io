@@ -389,7 +389,9 @@
 	<button class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-bold backdrop-blur-sm transition-all" onclick="window.location.href='https://filimo.com'" > 📱  ارتباط با  ما در ایتا </button>
 	<button id="aboutBtn" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-bold backdrop-blur-sm transition-all"> ℹ️ درباره </button>
     </div>
-	<!-- About Modal -->
+   </div>
+  </footer>
+  <!-- About Modal -->
 <div id="aboutModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
     <div class="bg-white/95 rounded-3xl shadow-2xl p-8 max-w-md w-[90%] animate-fadeInUp relative">
 
@@ -400,20 +402,17 @@
 
         <div class="text-center">
             <div class="text-6xl mb-4">👨‍💻</div>
-            <h2 class="text-3xl font-black text-purple-600 mb-3">درباره من</h2>
+            <h2 class="text-3xl font-black text-purple-600 mb-3">درباره ما</h2>
 
             <p class="text-gray-700 leading-relaxed font-semibold text-lg">
-                من کامیل هستم؛ عاشق طراحی، کدنویسی و ساختن تجربه‌های دیجیتالی زیبا برای بچه‌ها.  
-                همیشه دنبال اینم که هر چیزی رو ساده‌تر، جذاب‌تر و قابل لمس‌تر کنم.  
-                این سایت رو با عشق ساختم تا دنیای قصه‌ها رو زنده‌تر کنم.
+شهر قصه بهانه ایست برای وقت گذراندن با فرزندمان و کمک به آنها برای رشد و داشتن آینده ای که هر کودک ایرانی شایسته آن است.
+ برای بهتر شدنمان نظرات و پیشنهاداتتان کمک بسیار بزرگی به ما خواهد کرد، میتوانید آنها را از طریق کانال ایتا با در میان بگذارید.
             </p>
         </div>
 
     </div>
 </div>
 
-   </div>
-  </footer>
   <script>
         const stories = [
             {
@@ -1143,7 +1142,6 @@
                 `;
             }).join('');
 
-            document.getElementById('storyCount').textContent = filteredStories.length;
 
             attachStoryListeners();
 			
@@ -1324,12 +1322,13 @@
         renderStories();
 		
 	window.addEventListener('DOMContentLoaded', () => {
+
     const aboutBtn = document.getElementById('aboutBtn');
     const aboutModal = document.getElementById('aboutModal');
     const closeAbout = document.getElementById('closeAbout');
 
     if (!aboutBtn || !aboutModal || !closeAbout) {
-        console.warn('About modal elements not found');
+        console.warn("About modal elements not found");
         return;
     }
 
@@ -1346,7 +1345,9 @@
             aboutModal.classList.add('hidden');
         }
     });
+
 });
+
 
  
     </script>
