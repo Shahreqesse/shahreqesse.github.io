@@ -241,29 +241,6 @@
             .story-card:hover {
                 transform: translateY(-5px) scale(1.01);
             }
-            
-            .story-card {
-                padding: 1rem;
-            }
-            
-            h1, h2, h3 {
-                line-height: 1.3;
-            }
-            
-            .featured-slider {
-                padding: 0 10px;
-            }
-        }
-        
-        @media (max-width: 380px) {
-            .story-card {
-                padding: 0.75rem;
-            }
-            
-            .category-badge {
-                font-size: 0.75rem;
-                padding: 0.375rem 0.75rem;
-            }
         }
         
         @media (prefers-reduced-motion: reduce) {
@@ -282,64 +259,64 @@
    <nav class="container mx-auto px-3 py-3 md:px-4 md:py-4">
     <div class="flex items-center justify-between">
      <div class="flex items-center gap-2 md:gap-3">
-      <div class="text-3xl md:text-5xl animate-bounce-slow">
+      <div class="text-2xl md:text-5xl animate-bounce-slow">
        📚
       </div>
       <div>
-       <h1 id="site-title" class="text-xl md:text-3xl font-black text-white drop-shadow-lg">شهر قصه</h1>
-       <p id="site-subtitle" class="text-xs md:text-sm text-white/90 font-semibold hidden sm:block">دنیای جادویی داستان‌ها</p>
+       <h1 id="site-title" class="text-lg md:text-3xl font-black text-white drop-shadow-lg">شهر قصه</h1>
+       <p id="site-subtitle" class="text-[10px] md:text-sm text-white/90 font-semibold hidden sm:block">دنیای جادویی داستان‌ها</p>
       </div>
      </div>
-     <div class="flex gap-2 md:gap-3"><button id="darkModeBtn" class="bg-white/20 hover:bg-white/30 text-white px-3 py-2 md:px-4 md:py-2 rounded-full text-sm md:text-base font-bold backdrop-blur-sm transition-all"> <span class="md:hidden">🌙</span> <span class="hidden md:inline">🌙 حالت شب</span> </button> <button id="searchBtn" class="bg-white/20 hover:bg-white/30 text-white px-3 py-2 md:px-4 md:py-2 rounded-full text-sm md:text-base font-bold backdrop-blur-sm transition-all"> <span class="md:hidden">🔍</span> <span class="hidden md:inline">🔍 جستجو</span> </button>
+     <div class="flex gap-2 md:gap-3"><button id="darkModeBtn" class="bg-white/20 hover:bg-white/30 text-white px-2.5 py-1.5 md:px-4 md:py-2 rounded-full text-xs md:text-base font-bold backdrop-blur-sm transition-all"> <span class="md:hidden">🌙</span> <span class="hidden md:inline">🌙 حالت شب</span> </button> <button id="searchBtn" class="bg-white/20 hover:bg-white/30 text-white px-2.5 py-1.5 md:px-4 md:py-2 rounded-full text-xs md:text-base font-bold backdrop-blur-sm transition-all"> <span class="md:hidden">🔍</span> <span class="hidden md:inline">🔍 جستجو</span> </button>
      </div>
     </div>
    </nav>
   </header><!-- Hero Section -->
-  <section class="relative overflow-hidden py-10 md:py-20" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-   <div class="star-decoration text-3xl md:text-6xl" style="top: 10%; left: 10%;">
+  <section class="relative overflow-hidden py-8 md:py-20" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+   <div class="star-decoration text-2xl md:text-6xl" style="top: 10%; left: 10%;">
     ⭐
    </div>
-   <div class="star-decoration text-2xl md:text-4xl" style="top: 70%; right: 15%;">
+   <div class="star-decoration text-xl md:text-4xl" style="top: 70%; right: 15%;">
     ✨
    </div>
-   <div class="star-decoration text-3xl md:text-5xl" style="top: 30%; right: 20%;">
+   <div class="star-decoration text-2xl md:text-5xl" style="top: 30%; right: 20%;">
     🌟
    </div>
    <div class="container mx-auto px-4 text-center relative z-10">
     <div class="animate-fadeInUp">
-     <h2 class="text-2xl md:text-6xl font-black text-white mb-3 md:mb-6 drop-shadow-2xl leading-tight px-2">به شهر قصه خوش آمدید! 🎉</h2>
-     <p id="hero-description" class="text-base md:text-2xl text-white/95 mb-6 md:mb-8 font-semibold px-4">با ما به سفری پر از ماجراجویی، دوستی و آموزش بیا!</p>
+     <h2 class="text-xl md:text-6xl font-black text-white mb-2 md:mb-6 drop-shadow-2xl leading-tight px-2">به شهر قصه خوش آمدید! 🎉</h2>
+     <p id="hero-description" class="text-sm md:text-2xl text-white/95 mb-4 md:mb-8 font-semibold px-4">با ما به سفری پر از ماجراجویی، دوستی و آموزش بیا!</p>
      <div class="flex gap-2 md:gap-6 justify-center flex-wrap">
-      <div class="bg-white/20 backdrop-blur-md rounded-xl md:rounded-3xl p-3 md:p-6 animate-float" style="animation-delay: 0s;">
-       <div class="text-2xl md:text-5xl mb-0.5 md:mb-2">
+      <div class="bg-white/20 backdrop-blur-md rounded-lg md:rounded-3xl p-2 md:p-6 animate-float" style="animation-delay: 0s;">
+       <div class="text-xl md:text-5xl mb-1 md:mb-2">
         📖
        </div>
-       <div class="text-xl md:text-3xl font-black text-white" id="storyCount">
+       <div class="text-lg md:text-3xl font-black text-white" id="storyCount">
         12
        </div>
-       <div class="text-white/90 font-semibold text-[10px] md:text-base">
+       <div class="text-white/90 font-semibold text-[9px] md:text-base">
         داستان شگفت‌انگیز
        </div>
       </div>
-      <div class="bg-white/20 backdrop-blur-md rounded-xl md:rounded-3xl p-3 md:p-6 animate-float" style="animation-delay: 0.3s;">
-       <div class="text-2xl md:text-5xl mb-0.5 md:mb-2">
+      <div class="bg-white/20 backdrop-blur-md rounded-lg md:rounded-3xl p-2 md:p-6 animate-float" style="animation-delay: 0.3s;">
+       <div class="text-xl md:text-5xl mb-1 md:mb-2">
         🎭
        </div>
-       <div class="text-xl md:text-3xl font-black text-white">
+       <div class="text-lg md:text-3xl font-black text-white">
         5
        </div>
-       <div class="text-white/90 font-semibold text-[10px] md:text-base">
+       <div class="text-white/90 font-semibold text-[9px] md:text-base">
         دسته‌بندی
        </div>
       </div>
-      <div class="bg-white/20 backdrop-blur-md rounded-xl md:rounded-3xl p-3 md:p-6 animate-float" style="animation-delay: 0.6s;">
-       <div class="text-2xl md:text-5xl mb-0.5 md:mb-2">
-        ✨
+      <div class="bg-white/20 backdrop-blur-md rounded-lg md:rounded-3xl p-2 md:p-6 animate-float" style="animation-delay: 0.6s;">
+       <div class="text-xl md:text-5xl mb-1 md:mb-2">
+        ⭐
        </div>
-       <div class="text-xl md:text-3xl font-black text-white">
+       <div class="text-lg md:text-3xl font-black text-white">
         4
        </div>
-       <div class="text-white/90 font-semibold text-[10px] md:text-base">
+       <div class="text-white/90 font-semibold text-[9px] md:text-base">
         داستان ویژه
        </div>
       </div>
@@ -349,39 +326,39 @@
   </section><!-- Featured Stories Slider -->
   <section class="py-6 md:py-12 bg-gradient-to-b from-purple-100 to-pink-100">
    <div class="container mx-auto px-4">
-    <h3 class="text-2xl md:text-4xl font-black text-center mb-4 md:mb-8 text-purple-600">🌟 داستان‌های ویژه</h3>
+    <h3 class="text-xl md:text-4xl font-black text-center mb-4 md:mb-8 text-purple-600">🌟 داستان‌های ویژه</h3>
     <div class="relative">
      <div class="featured-slider" id="featuredSlider"><!-- Featured slides will be inserted here -->
-     </div><button id="prevSlide" class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-purple-600 w-10 h-10 md:w-14 md:h-14 rounded-full font-black text-xl md:text-3xl shadow-xl z-10 transition-all">❮</button> <button id="nextSlide" class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-purple-600 w-10 h-10 md:w-14 md:h-14 rounded-full font-black text-xl md:text-3xl shadow-xl z-10 transition-all">❯</button>
+     </div><button id="prevSlide" class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-purple-600 w-8 h-8 md:w-14 md:h-14 rounded-full font-black text-lg md:text-3xl shadow-xl z-10 transition-all">❮</button> <button id="nextSlide" class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-purple-600 w-8 h-8 md:w-14 md:h-14 rounded-full font-black text-lg md:text-3xl shadow-xl z-10 transition-all">❯</button>
     </div>
    </div>
   </section><!-- Search Bar -->
-  <div id="searchBar" class="hidden bg-gradient-to-r from-purple-400 to-pink-400 py-4 md:py-6">
-   <div class="container mx-auto px-4"><input type="text" id="searchInput" placeholder="🔍 دنبال چه داستانی میگردی؟" class="w-full px-4 py-3 md:px-6 md:py-4 rounded-full text-base md:text-xl font-semibold border-4 border-white shadow-2xl focus:outline-none focus:border-yellow-400 transition-all">
+  <div id="searchBar" class="hidden bg-gradient-to-r from-purple-400 to-pink-400 py-3 md:py-6">
+   <div class="container mx-auto px-4"><input type="text" id="searchInput" placeholder="🔍 دنبال چه داستانی میگردی؟" class="w-full px-4 py-2.5 md:px-6 md:py-4 rounded-full text-sm md:text-xl font-semibold border-4 border-white shadow-2xl focus:outline-none focus:border-yellow-400 transition-all">
    </div>
   </div><!-- Categories -->
-  <section class="py-6 md:py-12 bg-gradient-to-b from-pink-100 to-blue-100">
+  <section class="py-4 md:py-12 bg-gradient-to-b from-pink-100 to-blue-100">
    <div class="container mx-auto px-4">
-    <h3 class="text-2xl md:text-4xl font-black text-center mb-4 md:mb-8 text-purple-600">🎭 دسته‌بندی داستان‌ها</h3>
-    <div class="flex gap-2 md:gap-4 justify-center flex-wrap"><button class="category-badge bg-gradient-to-r from-red-400 to-pink-400 text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-sm md:text-lg shadow-lg" data-category="all"> 🌈 همه </button> <button class="category-badge bg-gradient-to-r from-green-400 to-teal-400 text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-sm md:text-lg shadow-lg" data-category="moral"> 💚 اخلاقی </button> <button class="category-badge bg-gradient-to-r from-yellow-400 to-orange-400 text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-sm md:text-lg shadow-lg" data-category="adventure"> 🚀 ماجراجویی </button> <button class="category-badge bg-gradient-to-r from-blue-400 to-purple-400 text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-sm md:text-lg shadow-lg" data-category="educational"> 📚 آموزشی </button> <button class="category-badge bg-gradient-to-r from-purple-400 to-pink-400 text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-sm md:text-lg shadow-lg" data-category="friendship"> 🤝 دوستی </button>
+    <h3 class="text-xl md:text-4xl font-black text-center mb-3 md:mb-8 text-purple-600">🎭 دسته‌بندی داستان‌ها</h3>
+    <div class="flex gap-2 md:gap-4 justify-center flex-wrap"><button class="category-badge bg-gradient-to-r from-red-400 to-pink-400 text-white px-3 py-1.5 md:px-6 md:py-3 rounded-full font-bold text-xs md:text-lg shadow-lg" data-category="all"> 🌈 همه </button> <button class="category-badge bg-gradient-to-r from-green-400 to-teal-400 text-white px-3 py-1.5 md:px-6 md:py-3 rounded-full font-bold text-xs md:text-lg shadow-lg" data-category="moral"> 💚 اخلاقی </button> <button class="category-badge bg-gradient-to-r from-yellow-400 to-orange-400 text-white px-3 py-1.5 md:px-6 md:py-3 rounded-full font-bold text-xs md:text-lg shadow-lg" data-category="adventure"> 🚀 ماجراجویی </button> <button class="category-badge bg-gradient-to-r from-blue-400 to-purple-400 text-white px-3 py-1.5 md:px-6 md:py-3 rounded-full font-bold text-xs md:text-lg shadow-lg" data-category="educational"> 📚 آموزشی </button> <button class="category-badge bg-gradient-to-r from-purple-400 to-pink-400 text-white px-3 py-1.5 md:px-6 md:py-3 rounded-full font-bold text-xs md:text-lg shadow-lg" data-category="friendship"> 🤝 دوستی </button>
     </div>
    </div>
   </section><!-- Stories Container -->
-  <main class="container mx-auto px-4 py-6 md:py-12 w-full">
-   <div class="flex justify-between items-center mb-6">
-    <h3 class="text-xl md:text-3xl font-black text-purple-600">همه داستان‌ها</h3>
+  <main class="container mx-auto px-4 py-4 md:py-12 w-full">
+   <div class="flex justify-between items-center mb-4">
+    <h3 class="text-lg md:text-3xl font-black text-purple-600">همه داستان‌ها</h3>
    </div>
-   <div id="storiesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8"><!-- Stories will be inserted here -->
+   <div id="storiesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8"><!-- Stories will be inserted here -->
    </div>
   </main><!-- Footer -->
-  <footer class="gradient-rainbow py-8 md:py-12 mt-10 md:mt-20">
+  <footer class="gradient-rainbow py-6 md:py-12 mt-8 md:mt-20">
    <div class="container mx-auto px-4 text-center">
-    <div class="text-4xl md:text-6xl mb-4 md:mb-6 animate-bounce-slow">
+    <div class="text-3xl md:text-6xl mb-3 md:mb-6 animate-bounce-slow">
      🌟
     </div>
-    <p id="footer-text" class="text-lg md:text-2xl text-white font-bold mb-3 md:mb-4">ساخته شده با ❤️ برای کودکان</p>
-    <p class="text-white/90 font-semibold text-sm md:text-base">همه روزه داستان‌های جدید اضافه می‌شود!</p>
-    <div class="flex gap-2 md:gap-4 justify-center mt-4 md:mt-6 flex-wrap"><button class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-bold backdrop-blur-sm transition-all"> 📧 تماس </button> <button class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-bold backdrop-blur-sm transition-all"> ℹ️ درباره </button>
+    <p id="footer-text" class="text-base md:text-2xl text-white font-bold mb-2 md:mb-4">ساخته شده با ❤️ برای کودکان</p>
+    <p class="text-white/90 font-semibold text-xs md:text-base">همه روزه داستان‌های جدید اضافه می‌شود!</p>
+    <div class="flex gap-2 md:gap-4 justify-center mt-3 md:mt-6 flex-wrap"><button class="bg-white/20 hover:bg-white/30 text-white px-3 py-1.5 md:px-6 md:py-3 rounded-full text-xs md:text-base font-bold backdrop-blur-sm transition-all"> 📧 تماس </button> <button class="bg-white/20 hover:bg-white/30 text-white px-3 py-1.5 md:px-6 md:py-3 rounded-full text-xs md:text-base font-bold backdrop-blur-sm transition-all"> ℹ️ درباره </button>
     </div>
    </div>
   </footer>
@@ -414,7 +391,7 @@
 
 شیر با تعجب گفت: "تو واقعا به من کمک کردی! از این پس دوستان خوبی خواهیم بود."
 
-💡 پیام داستان: هر کسی می‌توان�� به دیگران کمک کند، حتی اگر کوچک باشد. مهربانی همیشه به ما برمی‌گردد.`
+💡 پیام داستان: هر کسی می‌تواند به دیگران کمک کند، حتی اگر کوچک باشد. مهربانی همیشه به ما برمی‌گردد.`
             },
             {
                 id: 2,
@@ -433,7 +410,7 @@
 🐰💨 vs 🐢🚶
 </div>
 
-خرگو�� با اطمینان پذیرفت. مسابقه شروع شد. خرگوش خیلی سریع دوید و به لاک‌پشت فاصله زیادی داد.
+خرگوش با اطمینان پذیرفت. مسابقه شروع شد. خرگوش خیلی سریع دوید و به لاک‌پشت فاصله زیادی داد.
 
 خرگوش فکر کرد: "من خیلی جلوتر هستم، می‌توانم کمی استراحت کنم." زیر درختی خوابید.
 
@@ -445,7 +422,7 @@
 
 صدای جشن لاک‌پشت، خرگوش را بیدار کرد. خرگوش با تعجب دید که باخته است.
 
-💡 پیام داستان: پشتکار و تلاش مستمر از سرعت و استعد��د مهم‌تر است. هرگز تسلیم نشو!`
+💡 پیام داستان: پشتکار و تلاش مستمر از سرعت و استعداد مهم‌تر است. هرگز تسلیم نشو!`
             },
             {
                 id: 3,
@@ -512,14 +489,14 @@
                 color: "from-yellow-400 to-green-400",
                 summary: "قدرت دوستی واقعی",
                 featured: false,
-                content: `شیری در جنگل تنها و غمگین بود. همه از او می‌تر��یدند. یک روز زرافه مهربانی به او گفت: "چرا غمگینی؟"
+                content: `شیری در جنگل تنها و غمگین بود. همه از او می‌ترسیدند. یک روز زرافه مهربانی به او گفت: "چرا غمگینی؟"
 
 شیر گفت: "همه از من می‌ترسند و کسی دوستم ندارد."
 
 زرافه لبخند زد: "من از تو نمی‌ترسم! بیا دوست باشیم!"
 
 <div style="text-align: center; font-size: 80px; margin: 20px 0;">
-🦁🤝🦒
+🦁❤️🦒
 </div>
 
 از آن روز، شیر و زرافه دوستان صمیمی شدند. شیر با قدرتش، زرافه را از خطرها نجات می‌داد. زرافه با گردن بلندش، میوه‌های درختان بلند را برای شیر می‌چید.
@@ -555,7 +532,7 @@
 🐦☁️✨🌤️
 </div>
 
-پیپی فری��د زد: "من دارم پرواز می‌کنم!"
+پیپی فریاد زد: "من دارم پرواز می‌کنم!"
 
 از آن روز، پیپی هر روز پرواز می‌کرد و به دیگر پرنده‌های ترسو کمک می‌کرد.
 
@@ -576,7 +553,7 @@
 🐻🍯🐝
 </div>
 
-خرس ��ول داد اما هر روز طاقتش تمام می‌شد. روز سوم، نزدیک بود که کندو را بشکند!
+خرس قول داد اما هر روز طاقتش تمام می‌شد. روز سوم، نزدیک بود که کندو را بشکند!
 
 اما پروانه‌ای گفت: "صبر کن! زنبورها دارند برایت چیز خاصی می‌سازند!"
 
@@ -601,7 +578,7 @@
                 featured: false,
                 content: `فیل کوچولویی به نام المو فکر می‌کرد خیلی کوچک و ضعیف است. دیگر حیوانات بزرگتر از او بودند.
 
-یک روز، آتش سوزی در جنگل ��روع شد! همه فرار کردند اما خرگوش کوچولو گیر کرده بود.
+یک روز، آتش سوزی در جنگل شروع شد! همه فرار کردند اما خرگوش کوچولو گیر کرده بود.
 
 <div style="text-align: center; font-size: 70px; margin: 20px 0;">
 🐘💨🆘🔥
@@ -655,7 +632,7 @@
                 category: "moral",
                 categoryName: "اخلاقی",
                 color: "from-orange-400 to-red-500",
-                summary: "خوشبختی د�� دادن",
+                summary: "خوشبختی در دادن",
                 featured: false,
                 content: `سنجابی فندق‌های زیادی جمع کرده بود و آنها را مخفی می‌کرد. به هیچ کس چیزی نمی‌داد.
 
@@ -677,7 +654,7 @@
 
 سنجاب فهمید که دادن، خوشبختی می‌آورد.
 
-💡 پیام داستان: سخاو�� ما را خوشبخت می‌کند و دوستان زیادی برایمان می‌آورد!`
+💡 پیام داستان: سخاوت ما را خوشبخت می‌کند و دوستان زیادی برایمان می‌آورد!`
             },
             {
                 id: 11,
@@ -696,7 +673,7 @@
 🐧🐧🐧💙
 </div>
 
-هر روز تمرین کردند. یکی شیرجه را یاد داد، یک�� شنا کردن را، یکی دیگر صید ماهی را.
+هر روز تمرین کردند. یکی شیرجه را یاد داد، یکی شنا کردن را، یکی دیگر صید ماهی را.
 
 بعد از چند هفته، پیپ بهترین شناگر شد!
 
@@ -725,7 +702,7 @@
 👧🏔️🐲
 </div>
 
-اژد��ا را دید که برای پرنده‌های زخمی آواز می‌خواند و آنها را درمان می‌کرد.
+اژدها را دید که برای پرنده‌های زخمی آواز می‌خواند و آنها را درمان می‌کرد.
 
 مریم گفت: "تو مهربانی! چرا همه می‌ترسند؟"
 
@@ -745,7 +722,7 @@
             site_title: "شهر قصه",
             site_subtitle: "دنیای جادویی داستان‌ها",
             hero_description: "با ما به سفری پر از ماجراجویی، دوستی و آموزش بیا!",
-            footer_text: "ساخته شده با ���️ برای کودکان",
+            footer_text: "ساخته شده با ❤️ برای کودکان",
             font_family: "Vazirmatn",
             font_size: 16
         };
@@ -774,14 +751,14 @@
 
             container.innerHTML = featuredStories.map(story => {
                 return `
-                    <div class="featured-slide px-4">
-                        <div class="bg-gradient-to-br ${story.color} rounded-3xl p-8 md:p-12 shadow-2xl text-center relative overflow-hidden">
-                            <div class="absolute top-4 right-4 text-5xl md:text-6xl animate-pulse-glow">⭐</div>
-                            <div class="text-7xl md:text-9xl mb-6 animate-float">${story.emoji}</div>
-                            <h3 class="text-3xl md:text-5xl font-black text-white mb-4 drop-shadow-lg">${story.title}</h3>
-                            <p class="text-white/90 text-lg md:text-2xl font-semibold mb-6">${story.summary}</p>
+                    <div class="featured-slide px-2 md:px-4">
+                        <div class="bg-gradient-to-br ${story.color} rounded-2xl md:rounded-3xl p-6 md:p-12 shadow-2xl text-center relative overflow-hidden">
+                            <div class="absolute top-3 right-3 md:top-4 md:right-4 text-3xl md:text-6xl animate-pulse-glow">⭐</div>
+                            <div class="text-5xl md:text-9xl mb-4 md:mb-6 animate-float">${story.emoji}</div>
+                            <h3 class="text-xl md:text-5xl font-black text-white mb-2 md:mb-4 drop-shadow-lg leading-tight">${story.title}</h3>
+                            <p class="text-white/90 text-sm md:text-2xl font-semibold mb-4 md:mb-6">${story.summary}</p>
                             <div class="flex gap-3 justify-center">
-                                <button class="read-featured-btn btn-primary bg-white/90 hover:bg-white text-purple-600 px-8 py-4 rounded-full text-xl font-bold shadow-lg" data-story-id="${story.id}">
+                                <button class="read-featured-btn btn-primary bg-white/90 hover:bg-white text-purple-600 px-5 py-2.5 md:px-8 md:py-4 rounded-full text-sm md:text-xl font-bold shadow-lg" data-story-id="${story.id}">
                                     📖 بخوان الان
                                 </button>
                             </div>
@@ -822,26 +799,26 @@
             container.innerHTML = filteredStories.map((story, index) => {
                 const isRead = readStories.includes(story.id);
                 return `
-                    <div class="story-card bg-gradient-to-br ${story.color} rounded-2xl md:rounded-3xl p-5 md:p-8 shadow-xl cursor-pointer relative overflow-hidden animate-fadeInUp flex flex-col h-full" 
-                         style="animation-delay: ${index * 0.1}s; min-height: 320px;"
+                    <div class="story-card bg-gradient-to-br ${story.color} rounded-xl md:rounded-3xl p-4 md:p-8 shadow-xl cursor-pointer relative overflow-hidden animate-fadeInUp flex flex-col h-full" 
+                         style="animation-delay: ${index * 0.1}s; min-height: 260px;"
                          data-story-id="${story.id}">
-                        ${isRead ? '<div class="absolute top-3 left-3 md:top-4 md:left-4 bg-green-500 text-white px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-bold">✓ خوانده شده</div>' : ''}
-                        <div class="absolute top-3 right-3 md:top-4 md:right-4 bg-white/80 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-bold text-purple-600">
+                        ${isRead ? '<div class="absolute top-2 left-2 md:top-4 md:left-4 bg-green-500 text-white px-2 py-0.5 md:px-3 md:py-1 rounded-full text-[10px] md:text-sm font-bold">✅ خونده شد</div>' : ''}
+                        <div class="absolute top-2 right-2 md:top-4 md:right-4 bg-white/80 backdrop-blur-sm px-2 py-0.5 md:px-3 md:py-1 rounded-full text-[10px] md:text-sm font-bold text-purple-600">
                             ${story.categoryName}
                         </div>
                         <div class="text-center flex-grow flex flex-col justify-between">
                             <div>
-                                <div class="text-5xl md:text-8xl mb-2 md:mb-4 animate-bounce-slow">
+                                <div class="text-4xl md:text-8xl mb-2 md:mb-4 animate-bounce-slow">
                                     ${story.emoji}
                                 </div>
-                                <h3 class="text-lg md:text-3xl font-black text-white mb-2 md:mb-3 drop-shadow-lg leading-tight">${story.title}</h3>
-                                <p class="text-white/90 text-xs md:text-lg font-semibold mb-3 md:mb-4 px-2">${story.summary}</p>
+                                <h3 class="text-base md:text-3xl font-black text-white mb-1.5 md:mb-3 drop-shadow-lg leading-tight">${story.title}</h3>
+                                <p class="text-white/90 text-[11px] md:text-lg font-semibold mb-3 md:mb-4 px-1">${story.summary}</p>
                             </div>
                             <div class="flex gap-1.5 md:gap-3 justify-center flex-wrap mt-auto">
-                                <button class="read-btn btn-primary bg-white/90 hover:bg-white text-purple-600 px-3 py-1.5 md:px-6 md:py-3 rounded-full text-xs md:text-base font-bold shadow-lg">
+                                <button class="read-btn btn-primary bg-white/90 hover:bg-white text-purple-600 px-3 py-1.5 md:px-6 md:py-3 rounded-full text-[11px] md:text-base font-bold shadow-lg">
                                     📖 بخوان
                                 </button>
-                                <button class="share-btn btn-primary bg-white/20 hover:bg-white/30 text-white px-2.5 py-1.5 md:px-6 md:py-3 rounded-full text-xs md:text-base font-bold backdrop-blur-sm">
+                                <button class="share-btn btn-primary bg-white/20 hover:bg-white/30 text-white px-2.5 py-1.5 md:px-6 md:py-3 rounded-full text-[11px] md:text-base font-bold backdrop-blur-sm">
                                     🔗 اشتراک
                                 </button>
                             </div>
@@ -1026,5 +1003,5 @@
         renderFeaturedSlider();
         renderStories();
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b7e201416a2eda3',t:'MTc2NzM5NzQ3Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b7e39b2d293eda8',t:'MTc2NzM5ODUyNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
