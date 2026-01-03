@@ -385,8 +385,33 @@
     </div>
     <p id="footer-text" class="text-lg md:text-2xl text-white font-bold mb-3 md:mb-4">ساخته شده با ❤️ برای کودکان</p>
     <p class="text-white/90 font-semibold text-sm md:text-base">همه روزه داستان‌های جدید اضافه می‌شود!</p>
-    <div class="flex gap-2 md:gap-4 justify-center mt-4 md:mt-6 flex-wrap"><button class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-bold backdrop-blur-sm transition-all" onclick="window.location.href='https://filimo.com'" > 📱  ارتباط با  ما در ایتا </button> <button class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-bold backdrop-blur-sm transition-all"> ℹ️ درباره </button>
+    <div class="flex gap-2 md:gap-4 justify-center mt-4 md:mt-6 flex-wrap">
+	<button class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-bold backdrop-blur-sm transition-all" onclick="window.location.href='https://filimo.com'" > 📱  ارتباط با  ما در ایتا </button>
+	<button id="aboutBtn" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-bold backdrop-blur-sm transition-all"> ℹ️ درباره </button>
     </div>
+	<!-- About Modal -->
+<div id="aboutModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    <div class="bg-white/95 rounded-3xl shadow-2xl p-8 max-w-md w-[90%] animate-fadeInUp relative">
+
+        <!-- Close Button -->
+        <button id="closeAbout" class="absolute top-3 right-3 text-gray-600 hover:text-black text-2xl font-bold">
+            ✕
+        </button>
+
+        <div class="text-center">
+            <div class="text-6xl mb-4">👨‍💻</div>
+            <h2 class="text-3xl font-black text-purple-600 mb-3">درباره من</h2>
+
+            <p class="text-gray-700 leading-relaxed font-semibold text-lg">
+                من کامیل هستم؛ عاشق طراحی، کدنویسی و ساختن تجربه‌های دیجیتالی زیبا برای بچه‌ها.  
+                همیشه دنبال اینم که هر چیزی رو ساده‌تر، جذاب‌تر و قابل لمس‌تر کنم.  
+                این سایت رو با عشق ساختم تا دنیای قصه‌ها رو زنده‌تر کنم.
+            </p>
+        </div>
+
+    </div>
+</div>
+
    </div>
   </footer>
   <script>
@@ -1096,7 +1121,7 @@
                     <div class="story-card bg-gradient-to-br ${story.color} rounded-2xl md:rounded-3xl p-3 md:p-8 shadow-xl cursor-pointer relative overflow-hidden animate-fadeInUp flex flex-col h-full" 
                          style="animation-delay: ${index * 0.1}s; min-height: 300px;"
                          data-story-id="${story.id}">
-                        ${isRead ? '<div class="absolute top-3 left-3 md:top-4 md:left-4 bg-green-500 text-white px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-bold">✓ خوانده شده</div>' : ''}
+                        ${isRead ? '<div class="absolute top-3 left-3 md:top-4 md:left-4 bg-green-500 text-white px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-bold">خواندم✓</div>' : ''}
                         <div class="absolute top-3 right-3 md:top-4 md:right-4 bg-white/80 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-bold text-purple-600">
                             ${story.categoryName}
                         </div>
@@ -1110,9 +1135,7 @@
                                 <p class="text-white/90 text-sm md:text-lg font-semibold mb-3 md:mb-4 px-2">${story.summary}</p>
                             </div>
                             <div class="flex gap-1.5 md:gap-3 justify-center flex-wrap mt-auto">
-                                <button class="read-btn btn-primary bg-white/90 hover:bg-white text-purple-600 px-4 py-3 md:px-4 md:py-6 rounded-full text-xs md:text-base font-bold shadow-lg">
-                                    📖 بخوان
-                                </button>
+                               <button class="read-btn btn-primary bg-white/90 hover:bg-white text-purple-600 px-4 py-3 md:px-4 md:py-6 rounded-full text-xs md:text-base font-bold shadow-lg" onclick="event.stopPropagation(); showFullscreenReader(${story.id});" > 📖 بخوان </button>
                               
                             </div>
                         </div>
@@ -1123,6 +1146,8 @@
             document.getElementById('storyCount').textContent = filteredStories.length;
 
             attachStoryListeners();
+			
+
         }
 
         function attachStoryListeners() {
@@ -1143,6 +1168,8 @@
                 });
             });
         }
+
+
 
         function showFullscreenReader(storyId) {
             const story = stories.find(s => s.id === storyId);
@@ -1295,6 +1322,33 @@
         createParticles();
         renderFeaturedSlider();
         renderStories();
+		
+	window.addEventListener('DOMContentLoaded', () => {
+    const aboutBtn = document.getElementById('aboutBtn');
+    const aboutModal = document.getElementById('aboutModal');
+    const closeAbout = document.getElementById('closeAbout');
+
+    if (!aboutBtn || !aboutModal || !closeAbout) {
+        console.warn('About modal elements not found');
+        return;
+    }
+
+    aboutBtn.addEventListener('click', () => {
+        aboutModal.classList.remove('hidden');
+    });
+
+    closeAbout.addEventListener('click', () => {
+        aboutModal.classList.add('hidden');
+    });
+
+    aboutModal.addEventListener('click', (e) => {
+        if (e.target.id === 'aboutModal') {
+            aboutModal.classList.add('hidden');
+        }
+    });
+});
+
+ 
     </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b7e201416a2eda3',t:'MTc2NzM5NzQ3Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
