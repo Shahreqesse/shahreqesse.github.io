@@ -479,41 +479,7 @@
 
     </div>
 </div>
-<div class="col-span-full">
-  <a href="https://eitaa.com/joinchat/1229391289C7029a991ca"
-     target="_blank"
-     rel="noopener noreferrer"
-     class="w-full rounded-2xl shadow-xl no-underline
-            flex items-center justify-between
-            bg-gradient-to-r from-[#FFB347] via-[#FF8A2D] to-[#FF6A00] px-6 py-6 gap-4"
-     dir="rtl">
 
-    <!-- لوگو -->
-    <div class="flex-shrink-0 mr-4 md:mr-8">
-      <img src="https://s6.uupload.ir/files/eitaa-icon_white_k68j.png"
-           alt="لوگو ایتا"
-           class="w-12 h-12 md:w-16 md:h-16 object-contain drop-shadow-lg">
-    </div>
-
-    <!-- متن -->
-    <div class="flex-1 text-right">
-      <div class="text-white font-extrabold leading-tight text-lg md:text-2xl">
-        کانال ما را در ایتا دنبال کنید<br>
-        <span class="opacity-95 text-base md:text-lg font-bold">کانال « شهر قصه »</span>
-      </div>
-    </div>
-
-    <!-- فلش -->
-    <div class="flex items-center pl-2 pr-4">
-      <div class="bg-white/30 rounded-full p-3 flex items-center justify-center shadow-md">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white"
-             viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-        </svg>
-      </div>
-    </div>
-  </a>
-</div>
   <script>
         const stories = [
             {
@@ -1473,6 +1439,45 @@
         }
 		
 
+function renderBanner() {
+  const container = document.getElementById('storiesContainer');
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'col-span-full';
+
+  wrapper.innerHTML = `
+    <a href="https://eitaa.com/joinchat/1229391289C7029a991ca"
+       class="w-full rounded-2xl shadow-xl no-underline
+              flex items-center justify-between
+              bg-gradient-to-r from-[#FFB347] via-[#FF8A2D] to-[#FF6A00] px-6 py-6 gap-4"
+       dir="rtl">
+
+      <div class="flex-shrink-0 mr-4 md:mr-8">
+        <img src="https://s6.uupload.ir/files/eitaa-icon_white_k68j.png"
+             alt="لوگو ایتا"
+             class="w-12 h-12 md:w-16 md:h-16 object-contain drop-shadow-lg">
+      </div>
+
+      <div class="flex-1 text-right">
+        <div class="text-white font-extrabold leading-tight text-lg md:text-2xl">
+          کانال ما را در ایتا دنبال کنید<br>
+          <span class="opacity-95 text-base md:text-lg font-bold">کانال « شهر قصه »</span>
+        </div>
+      </div>
+
+      <div class="flex items-center pl-2 pr-4">
+        <div class="bg-white/30 rounded-full p-3 flex items-center justify-center shadow-md">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white"
+               viewBox="0 0 24 24" fill="currentColor">
+            <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+          </svg>
+        </div>
+      </div>
+    </a>
+  `;
+
+  container.appendChild(wrapper);
+}
 
 
         function attachStoryListeners() {
@@ -1574,12 +1579,7 @@
 }
 
 // کنترل دکمه‌ی بازگشت گوشی/مرورگر
-window.addEventListener('popstate', (event) => {
-    const reader = document.querySelector('.fullscreen-reader');
-    if (event.state && event.state.fullscreen && reader) {
-        reader.remove();
-  }
-});
+
         function showToast(message) {
             const toast = document.createElement('div');
             toast.className = 'toast';
