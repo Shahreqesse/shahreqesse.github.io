@@ -1678,21 +1678,7 @@ function renderBanner() {
                 ])
             });
         }
-		(function fixAndroidBackFreeze() {
-  let wasHidden = false;
-
-  document.addEventListener("visibilitychange", function () {
-    if (document.hidden) {
-      wasHidden = true;
-    } else if (wasHidden) {
-      // Force reflow + revive interaction
-      document.body.style.display = "none";
-      document.body.offsetHeight; // reflow
-      document.body.style.display = "";
-      wasHidden = false;
-    }
-  });
-})();
+	
 
         createParticles();
         renderFeaturedSlider();
@@ -1729,7 +1715,32 @@ function renderBanner() {
 
 
 
+/* 🔧 Android Back Freeze Auto Fix */
+  (function autoFixAndroidBackFreeze() {
+    const ua = navigator.userAgent || "";
+    const isAndroid = /Android/i.test(ua);
+    const isWebView =
+      /wv/i.test(ua) ||
+      (/Version\/\d+\.\d+/i.test(ua) && !/Chrome/i.test(ua));
 
+    if (!isAndroid || !isWebView) return;
+
+    let wasHidden = false;
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) {
+        wasHidden = true;
+      } else if (wasHidden) {
+        const body = document.body;
+        body.style.pointerEvents = "none";
+        body.style.display = "none";
+        body.offsetHeight; // reflow
+        body.style.display = "";
+        body.style.pointerEvents = "";
+        wasHidden = false;
+      }
+    });
+  })();
 
  
     </script>
