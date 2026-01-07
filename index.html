@@ -1649,13 +1649,13 @@ function renderBanner() {
     reader.remove();
     document.body.style.overflow = "";
 
+    // اگر کاربر خودش close زد، history رو برگردون
     if (!fromPopState) {
       history.back();
     }
-
-    activeReaderClose = null;
   }, 300);
 }
+
 
 
 reader.querySelector(".share-story").addEventListener("click", async () => {
@@ -1690,6 +1690,9 @@ reader.querySelector(".back-to-list").addEventListener("click", () => {
     const next = stories[currentIndex + 1] || stories[0];
     setTimeout(() => showFullscreenReader(next.id), 400);
   });
+  
+  reader._closeReader = closeReader;
+
 }
 
 
@@ -1827,11 +1830,23 @@ reader.querySelector(".back-to-list").addEventListener("click", () => {
 
 });
 
-window.addEventListener("popstate", () => {
-  if (activeReaderClose) {
-    activeReaderClose(true);
+window.addEventListener("popstate", function (event) {
+  // اگر از state مربوط به reader برگشتیم
+  if (event.state && event.state.fullscreen) {
+    // هیچ کاری نکن (هنوز داخل reader هستیم)
+    return;
+  }
+
+  // اگر reader باز است و state خالی شده → باید بسته شود
+  const reader = document.querySelector(".fullscreen-reader");
+  if (reader) {
+    const closeFn = reader._closeReader;
+    if (closeFn) {
+      closeFn(true);
+    }
   }
 });
+
 
 
 
