@@ -95,9 +95,7 @@
             animation: float 3s ease-in-out infinite;
         }
 
-        .animate-bounce-slow {
-            animation: bounce 2s ease-in-out infinite;
-        }
+       
 
         .animate-slideInRight {
             animation: slideInRight 0.6s ease-out forwards;
@@ -466,7 +464,7 @@
   </main><!-- Footer -->
   <footer class="gradient-rainbow py-8 md:py-12 mt-10 md:mt-20">
    <div class="container mx-auto px-4 text-center">
-    <div class="text-4xl md:text-6xl mb-4 md:mb-6 animate-bounce-slow">
+    <div class="text-4xl md:text-6xl mb-4 md:mb-6">
      🌟
     </div>
     <p id="footer-text" class="text-lg md:text-2xl text-white font-bold mb-3 md:mb-4">ساخته شده با ❤️ برای کودکان</p>
@@ -1466,7 +1464,7 @@ function renderStoriesChunked() {
 
         <div class="text-center flex-grow flex flex-col justify-between">
           <div class="mt-10">
-            <div class="text-5xl md:text-8xl mb-2 animate-bounce-slow">${story.emoji}</div>
+            <div class="text-5xl md:text-8xl mb-2">${story.emoji}</div>
             <h3 class="text-xl md:text-4xl font-black text-white mb-2">${story.title}</h3>
             <p class="text-white/90 text-sm md:text-lg font-semibold mb-4 px-2">${story.summary}</p>
           </div>
@@ -1613,7 +1611,7 @@ function renderBanner() {
 
       <!-- هدر -->
       <div class="text-center mb-10">
-        <div class="text-8xl mb-4 animate-bounce-slow">${story.emoji}</div>
+        <div class="text-8xl mb-4">${story.emoji}</div>
         <h2 class="text-4xl md:text-6xl font-extrabold text-purple-700 mb-4">
           ${story.title}
         </h2>
@@ -1920,3 +1918,4 @@ window.addEventListener("popstate", function (event) {
     </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b7e201416a2eda3',t:'MTc2NzM5NzQ3Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
+
