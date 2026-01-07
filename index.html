@@ -1446,11 +1446,13 @@ function renderBanner() {
   wrapper.className = 'col-span-full';
 
   wrapper.innerHTML = `
-    <a href="https://eitaa.com/joinchat/1229391289C7029a991ca"
-       class="w-full rounded-2xl shadow-xl no-underline
-              flex items-center justify-between
-              bg-gradient-to-r from-[#FFB347] via-[#FF8A2D] to-[#FF6A00] px-6 py-6 gap-4"
-       dir="rtl">
+    <a href="#"
+   onclick="goToEitaa(event)"
+   class="w-full rounded-2xl shadow-xl no-underline
+          flex items-center justify-between
+          bg-gradient-to-r from-[#FFB347] via-[#FF8A2D] to-[#FF6A00] px-6 py-6 gap-4"
+   dir="rtl">
+
 
       <div class="flex-shrink-0 mr-4 md:mr-8">
         <img src="https://s6.uupload.ir/files/eitaa-icon_white_k68j.png"
@@ -1478,6 +1480,12 @@ function renderBanner() {
 
   container.appendChild(wrapper);
 }
+
+ function goToEitaa(e) {
+  e.preventDefault();
+  location.replace("https://eitaa.com/joinchat/1229391289C7029a991ca");
+}
+
 
 
         function attachStoryListeners() {
@@ -1715,32 +1723,6 @@ function renderBanner() {
 
 
 
-/* 🔧 Android Back Freeze Auto Fix */
-  (function autoFixAndroidBackFreeze() {
-    const ua = navigator.userAgent || "";
-    const isAndroid = /Android/i.test(ua);
-    const isWebView =
-      /wv/i.test(ua) ||
-      (/Version\/\d+\.\d+/i.test(ua) && !/Chrome/i.test(ua));
-
-    if (!isAndroid || !isWebView) return;
-
-    let wasHidden = false;
-
-    document.addEventListener("visibilitychange", function () {
-      if (document.hidden) {
-        wasHidden = true;
-      } else if (wasHidden) {
-        const body = document.body;
-        body.style.pointerEvents = "none";
-        body.style.display = "none";
-        body.offsetHeight; // reflow
-        body.style.display = "";
-        body.style.pointerEvents = "";
-        wasHidden = false;
-      }
-    });
-  })();
 
  
     </script>
