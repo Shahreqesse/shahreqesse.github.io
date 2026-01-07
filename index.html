@@ -1712,6 +1712,23 @@ function renderBanner() {
 
 });
 
+(function fixAndroidBackFreeze() {
+  let wasHidden = false;
+
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+      wasHidden = true;
+    } else if (wasHidden) {
+      // Force reflow + revive interaction
+      document.body.style.display = "none";
+      document.body.offsetHeight; // reflow
+      document.body.style.display = "";
+      wasHidden = false;
+    }
+  });
+})();
+
+
 
  
     </script>
