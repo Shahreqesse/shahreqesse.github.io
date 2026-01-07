@@ -1348,6 +1348,8 @@
         let isDarkMode = false;
         let currentCategory = 'all';
         let readStories = JSON.parse(localStorage.getItem('readStories') || '[]');
+		let activeReaderClose = null;
+
 
         async function onConfigChange(config) {
             const customFont = config.font_family || defaultConfig.font_family;
@@ -1637,17 +1639,24 @@ function renderBanner() {
   });
 
   // بستن Reader
-  function closeReader() {
-    const content = document.getElementById("story-content");
-    content.classList.remove("reader-enter");
-    content.classList.add("reader-exit");
+ function closeReader(fromPopState = false) {
+  const content = reader.querySelector("#story-content");
 
-    setTimeout(() => {
-      reader.remove();
-      document.body.style.overflow = "";
-      history.replaceState(null, "", window.location.pathname);
-    }, 350);
-  }
+  content.classList.remove("reader-enter");
+  content.classList.add("reader-exit");
+
+  setTimeout(() => {
+    reader.remove();
+    document.body.style.overflow = "";
+
+    if (!fromPopState) {
+      history.back();
+    }
+
+    activeReaderClose = null;
+  }, 300);
+}
+
 
 reader.querySelector(".share-story").addEventListener("click", async () => {
   const shareData = {
@@ -1666,9 +1675,14 @@ reader.querySelector(".share-story").addEventListener("click", async () => {
   }
 });
 
-  reader.querySelector(".close-reader").addEventListener("click", closeReader);
+reader.querySelector(".close-reader").addEventListener("click", () => {
+  closeReader(false);
+});
 
-  reader.querySelector(".back-to-list").addEventListener("click", closeReader);
+reader.querySelector(".back-to-list").addEventListener("click", () => {
+  closeReader(false);
+});
+
 
   reader.querySelector(".next-story").addEventListener("click", () => {
     closeReader();
@@ -1813,10 +1827,9 @@ reader.querySelector(".share-story").addEventListener("click", async () => {
 
 });
 
-window.addEventListener("popstate", function () {
-  const reader = document.querySelector(".fullscreen-reader");
-  if (reader) {
-    reader.remove();
+window.addEventListener("popstate", () => {
+  if (activeReaderClose) {
+    activeReaderClose(true);
   }
 });
 
