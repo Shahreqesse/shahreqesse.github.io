@@ -1408,6 +1408,18 @@ stories.forEach(s => {
                 });
             });
         }
+		
+		function renderStoriesSkeleton() {
+  const container = document.getElementById('storiesContainer');
+  if (!container) return;
+
+  container.className = "grid grid-cols-2 md:grid-cols-3 gap-4";
+
+  container.innerHTML = Array.from({ length: 6 }).map(() => `
+    <div class="rounded-2xl bg-gray-200 h-[260px] animate-pulse"></div>
+  `).join('');
+}
+
 
         function renderStories() {
             const container = document.getElementById('storiesContainer');
@@ -1804,10 +1816,20 @@ reader.querySelector(".back-to-list").addEventListener("click", () => {
         }
 	
 
-        createParticles();
-        renderFeaturedSlider();
-        renderStories();
-		renderBanner();
+// فاز اول (خیلی سبک)
+renderStoriesSkeleton();
+
+// فاز دوم (بعد از لود کامل)
+window.addEventListener('load', () => {
+  requestAnimationFrame(() => {
+    renderFeaturedSlider();
+    renderStories();
+    renderBanner();
+    createParticles();
+  });
+});
+
+
 
 		
 	window.addEventListener('DOMContentLoaded', () => {
