@@ -453,6 +453,10 @@
     </div>
    </div>
   </section><!-- Stories Container -->
+  
+  <!-- Banner Container -->
+<div id="bannerContainer" class="container mx-auto px-4 my-6"></div>
+
   <main class="container mx-auto px-4 py-6 md:py-12 w-full">
    <div class="flex justify-between items-center mb-6">
     <h3 class="text-xl md:text-3xl font-black text-purple-600">همه داستان‌ها</h3>
@@ -1411,128 +1415,139 @@ stories.forEach(s => {
 		
 		function renderStoriesSkeleton() {
   const container = document.getElementById('storiesContainer');
-  if (!container) return;
-
   container.className = "grid grid-cols-2 md:grid-cols-3 gap-4";
-
   container.innerHTML = Array.from({ length: 6 }).map(() => `
     <div class="rounded-2xl bg-gray-200 h-[260px] animate-pulse"></div>
   `).join('');
 }
 
+function renderStoriesChunked() {
+  const container = document.getElementById('storiesContainer');
+  const searchTerm = document.getElementById('searchInput').value.toLowerCase();
 
-        function renderStories() {
-            const container = document.getElementById('storiesContainer');
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            
-            let filteredStories = stories;
-            
-            if (currentCategory !== 'all') {
-                filteredStories = stories.filter(s => s.category === currentCategory);
-            }
-            
-            if (searchTerm) {
-                filteredStories = filteredStories.filter(s => 
-                    s.title.toLowerCase().includes(searchTerm) || 
-                    s.content.toLowerCase().includes(searchTerm)
-                );
-            }
-			
-            container.className = "grid grid-cols-2 md:grid-cols-3 gap-4";
+  let filteredStories = stories;
 
-            container.innerHTML = filteredStories.map((story, index) => {
-                const isRead = readStories.includes(story.id);
-                return `
-                    <div class="story-card bg-gradient-to-br ${story.color} rounded-2xl md:rounded-3xl p-3 md:p-8 shadow-xl cursor-pointer relative overflow-hidden animate-fadeInUp flex flex-col h-full" 
-                         style="animation-delay: ${index * 0.1}s; min-height: 300px;"
-                         data-story-id="${story.id}">
-                        ${isRead ? '<div class="absolute top-3 left-3 md:top-4 md:left-4 bg-green-500 text-white px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-bold">خواندم✓</div>' : ''}
-                        <div class="absolute top-3 right-3 md:top-4 md:right-4 bg-white/80 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-bold text-purple-600">
-                            ${story.categoryName}
-                        </div>
-                        <div class="text-center flex-grow flex flex-col justify-between">
-                           <div class="mt-10 md:mt-6">
-							
-                                <div class="text-5xl md:text-8xl mb-2 md:mb-4 animate-bounce-slow">
-                                    ${story.emoji}
-                                </div>
-                                <h3 class="text-xl md:text-4xl font-black text-white mb-2 md:mb-3 drop-shadow-lg leading-tight">${story.title}</h3>
-                                <p class="text-white/90 text-sm md:text-lg font-semibold mb-3 md:mb-4 px-2">${story.summary}</p>
-                            </div>
-                            <div class="flex gap-1.5 md:gap-3 justify-center flex-wrap mt-auto">
-                               <button class="read-btn btn-primary bg-white/90 hover:bg-white text-purple-600 px-4 py-3 md:px-4 md:py-6 rounded-full text-xs md:text-base font-bold shadow-lg" onclick="event.stopPropagation(); showFullscreenReader(${story.id});" > 📖 بخوان </button>
-                              
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+  if (currentCategory !== 'all') {
+    filteredStories = filteredStories.filter(s => s.category === currentCategory);
+  }
+
+  if (searchTerm) {
+    filteredStories = filteredStories.filter(s =>
+      s.title.toLowerCase().includes(searchTerm) ||
+     storyContentMap[s.id].toLowerCase().includes(searchTerm)
+
+    );
+  }
+
+  container.innerHTML = '';
+  container.className = "grid grid-cols-2 md:grid-cols-3 gap-4";
+
+  let index = 0;
+  const chunkSize = 3;
+
+  function renderChunk() {
+    const slice = filteredStories.slice(index, index + chunkSize);
+
+    slice.forEach((story, i) => {
+      const isRead = readStories.includes(story.id);
+
+      const card = document.createElement('div');
+      card.className =
+        "story-card bg-gradient-to-br " + story.color +
+        " rounded-2xl md:rounded-3xl p-3 md:p-8 shadow-xl cursor-pointer relative overflow-hidden flex flex-col h-full";
+
+      card.dataset.storyId = story.id;
+
+      card.innerHTML = `
+        ${isRead ? '<div class="absolute top-3 left-3 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold">خواندم✓</div>' : ''}
+        <div class="absolute top-3 right-3 bg-white/80 px-2 py-1 rounded-full text-xs font-bold text-purple-600">
+          ${story.categoryName}
+        </div>
+
+        <div class="text-center flex-grow flex flex-col justify-between">
+          <div class="mt-10">
+            <div class="text-5xl md:text-8xl mb-2 animate-bounce-slow">${story.emoji}</div>
+            <h3 class="text-xl md:text-4xl font-black text-white mb-2">${story.title}</h3>
+            <p class="text-white/90 text-sm md:text-lg font-semibold mb-4 px-2">${story.summary}</p>
+          </div>
+
+          <button class="read-btn btn-primary bg-white/90 text-purple-600 px-4 py-3 rounded-full text-xs md:text-base font-bold shadow-lg">
+            📖 بخوان
+          </button>
+        </div>
+      `;
+
+      card.querySelector('.read-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        showFullscreenReader(story.id);
+      });
+
+      card.addEventListener('click', () => showFullscreenReader(story.id));
+
+      container.appendChild(card);
+    });
+
+    index += chunkSize;
+
+    if (index < filteredStories.length) {
+      requestAnimationFrame(renderChunk);
+    }
+  }
+
+  renderChunk();
+}
 
 
-            attachStoryListeners();
-			
 
-        }
-		
 
 function renderBanner() {
-  const container = document.getElementById('storiesContainer');
+  const container = document.getElementById('bannerContainer');
+  if (!container || container.children.length > 0) return;
 
-  const wrapper = document.createElement('div');
-  wrapper.className = 'col-span-full';
+  container.innerHTML = `
+    <a href="#"
+       onclick="goToEitaa(event)"
+       class="group w-full rounded-[28px] no-underline
+              flex items-center justify-between
+              bg-gradient-to-r from-[#FFD56A] via-[#FF9F45] to-[#FF7A18]
+              px-4 md:px-6 py-6 gap-6
+              shadow-xl
+              transition-transform duration-200 active:scale-[0.97]"
+       dir="rtl">
 
-  wrapper.innerHTML = `
-<a href="#"
-   onclick="goToEitaa(event)"
-   class="group w-full rounded-[28px] no-underline
-          flex items-center justify-between
-          bg-gradient-to-r from-[#FFD56A] via-[#FF9F45] to-[#FF7A18]
-          px-4 md:px-6 py-6 gap-6
-          shadow-xl
-          transition-transform duration-200 active:scale-[0.97]"
-   dir="rtl">
+      <div class="flex-shrink-0 mr-1 md:mr-3">
+        <img src="https://s6.uupload.ir/files/eitaa-icon_white_k68j.png"
+             alt="لوگو ایتا"
+             class="w-12 h-12 md:w-15 md:h-15 object-contain
+                    drop-shadow-[0_6px_10px_rgba(0,0,0,0.25)]
+                    transition-transform duration-300
+                    group-hover:-translate-y-1">
+      </div>
 
-  <!-- آیکون برجسته -->
-  <div class="flex-shrink-0 mr-1 md:mr-3">
-    <img src="https://s6.uupload.ir/files/eitaa-icon_white_k68j.png"
-         alt="لوگو ایتا"
-         class="w-12 h-12 md:w-15 md:h-15 object-contain
-                drop-shadow-[0_6px_10px_rgba(0,0,0,0.25)]
-                transition-transform duration-300
-                group-hover:-translate-y-1">
-  </div>
+      <div class="flex-1 text-right px-2 md:px-4">
+        <div class="text-white font-extrabold text-lg md:text-2xl leading-tight">
+          بیا قصه‌هامونو تو ایتا ببین
+        </div>
+        <div class="mt-1 text-white/95 text-sm md:text-lg font-bold">
+          کانال « شهر قصه » ✨
+        </div>
+      </div>
 
-  <!-- متن کودکانه -->
-  <div class="flex-1 text-right px-2 md:px-4">
-    <div class="text-white font-extrabold text-lg md:text-2xl leading-tight">
-      بیا قصه‌هامونو تو ایتا ببین
-    </div>
-
-    <div class="mt-1 text-white/95 text-sm md:text-lg font-bold">
-      کانال « شهر قصه » ✨
-    </div>
-  </div>
-
-  <!-- فلش شاد -->
-  <div class="flex items-center">
-    <div class="bg-white rounded-full p-3
-                shadow-[0_6px_12px_rgba(0,0,0,0.25)]
-                transition-transform duration-300
-                group-hover:translate-x-[-4px]
-                active:scale-95">
-      <svg xmlns="http://www.w3.org/2000/svg"
-           class="w-5 h-5 md:w-6 md:h-6 text-[#FF7A18]"
-           viewBox="0 0 24 24" fill="currentColor">
-        <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-      </svg>
-    </div>
-  </div>
-</a>
-
-
+      <div class="flex items-center">
+        <div class="bg-white rounded-full p-3
+                    shadow-[0_6px_12px_rgba(0,0,0,0.25)]
+                    transition-transform duration-300
+                    group-hover:translate-x-[-4px]
+                    active:scale-95">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               class="w-5 h-5 md:w-6 md:h-6 text-[#FF7A18]"
+               viewBox="0 0 24 24" fill="currentColor">
+            <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+          </svg>
+        </div>
+      </div>
+    </a>
   `;
-
-  container.appendChild(wrapper);
 }
 
  function goToEitaa(e) {
@@ -1571,7 +1586,8 @@ function renderBanner() {
   if (!readStories.includes(storyId)) {
     readStories.push(storyId);
     localStorage.setItem("readStories", JSON.stringify(readStories));
-    renderStories();
+    renderStoriesChunked();
+
   }
 
   // قفل اسکرول پشت
@@ -1724,22 +1740,30 @@ reader.querySelector(".back-to-list").addEventListener("click", () => {
             setTimeout(() => toast.remove(), 3000);
         }
 
-        function createParticles() {
-            const bg = document.getElementById('parallaxBg');
-            const particles = ['⭐', '✨', '🌟', '💫', '🌙', '☁️'];
-            
-            setInterval(() => {
-                const particle = document.createElement('div');
-                particle.className = 'particle text-4xl';
-                particle.textContent = particles[Math.floor(Math.random() * particles.length)];
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.bottom = '0';
-                particle.style.animationDuration = (3 + Math.random() * 2) + 's';
-                bg.appendChild(particle);
-                
-                setTimeout(() => particle.remove(), 4000);
-            }, 2000);
-        }
+       let particleCount = 0;
+
+function createParticles() {
+  const bg = document.getElementById('parallaxBg');
+  const particles = ['⭐', '✨', '🌟'];
+
+  const interval = setInterval(() => {
+    if (particleCount > 6) {
+      clearInterval(interval);
+      return;
+    }
+
+    particleCount++;
+
+    const particle = document.createElement('div');
+    particle.className = 'particle text-4xl';
+    particle.textContent = particles[Math.floor(Math.random() * particles.length)];
+    particle.style.left = Math.random() * 100 + '%';
+    bg.appendChild(particle);
+
+    setTimeout(() => particle.remove(), 4000);
+  }, 1200);
+}
+
 
         document.getElementById('darkModeBtn').addEventListener('click', () => {
             isDarkMode = !isDarkMode;
@@ -1761,7 +1785,8 @@ reader.querySelector(".back-to-list").addEventListener("click", () => {
         });
 
         document.getElementById('searchInput').addEventListener('input', () => {
-            renderStories();
+            renderStoriesChunked();
+
         });
 
         document.querySelectorAll('.category-badge').forEach(badge => {
@@ -1769,7 +1794,7 @@ reader.querySelector(".back-to-list").addEventListener("click", () => {
                 currentCategory = badge.dataset.category;
                 document.querySelectorAll('.category-badge').forEach(b => b.style.opacity = '0.6');
                 badge.style.opacity = '1';
-                renderStories();
+               renderStoriesChunked();
                 showToast(`📚 دسته "${badge.textContent.trim()}" انتخاب شد`);
             });
         });
@@ -1816,18 +1841,30 @@ reader.querySelector(".back-to-list").addEventListener("click", () => {
         }
 	
 
-// فاز اول (خیلی سبک)
+// فاز اول – خیلی سبک (سریع لود می‌شه)
 renderStoriesSkeleton();
 
-// فاز دوم (بعد از لود کامل)
+// فاز دوم – بعد از load
 window.addEventListener('load', () => {
+
+  // اسلایدر (اولویت بصری)
+  renderFeaturedSlider();
+
+renderBanner(); 
+  // داستان‌ها به صورت تکه‌ای (بدون فریز)
   requestAnimationFrame(() => {
-    renderFeaturedSlider();
-    renderStories();
-    renderBanner();
-    createParticles();
+    renderStoriesChunked();
   });
+
+
+
+  // ذرات پس‌زمینه با تأخیر
+  setTimeout(() => {
+    createParticles();
+  }, 4000);
+
 });
+
 
 
 
