@@ -165,15 +165,58 @@
             pointer-events: none;
         }
 
-        .dark-mode {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-        }
+      /* حالت شب برای کل صفحه */
+.dark-mode {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #f0f0f0;
+}
 
-        .dark-mode .story-card {
-            background: linear-gradient(135deg, #2a2a4e 0%, #1e1e3e 100%);
-            color: white;
-        }
 
+
+/* اگر کارت‌ها کلاس story-card دارن */
+.dark-mode #featuredSlider .story-card {
+  background: linear-gradient(135deg, #2a2a4e 0%, #1e1e3e 100%) !important;
+  color: #f0f0f0 !important;
+}
+.dark-mode section:nth-of-type(1) {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+}
+/* کارت‌های داستان معمولی */
+.dark-mode .story-card {
+  background: linear-gradient(135deg, #2a2a4e 0%, #1e1e3e 100%) !important;
+  color: #f0f0f0 !important;
+  border: 1px solid #333;
+}
+
+/* مودال داستان */
+.dark-mode #story-content {
+  background: linear-gradient(135deg, #2a2a4e 0%, #1e1e3e 100%) !important;
+  color: #f0f0f0 !important;
+}
+.dark-mode #featuredSlider > div > div {
+  background: linear-gradient(135deg, #2a2a4e 0%, #1e1e3e 100%) !important;
+  color: #f0f0f0 !important;
+}
+/* تیتر داستان در حالت شب */
+.dark-mode #story-content h2 {
+  color: #ffcc00 !important;
+}
+
+/* متن داستان */
+.dark-mode #story-content p {
+  color: #e0e0e0 !important;
+}
+
+/* دکمه‌ها در حالت شب */
+.dark-mode button {
+  background-color: #333 !important;
+  color: #fff !important;
+  border: 1px solid #555 !important;
+}
+
+.dark-mode button:hover {
+  background-color: #444 !important;
+}
         .scroll-smooth {
             scroll-behavior: smooth;
         }
@@ -305,7 +348,7 @@
        style="bottom: -10%; left: 20%; transform: translateX(-50%); z-index: 1;"></div>
 
   <!-- PNG اصلی -->
-  <img src="icon.PNG"
+  <img src="https://s6.uupload.ir/files/icon_3v8.png"
        class="absolute w-48 md:w-72 opacity-95 drop-shadow-2xl"
        style="bottom: 0; left: 20%; transform: translateX(-50%); z-index: 5;">
 
@@ -350,15 +393,39 @@
 </style>
 
 
-<!-- Featured Stories Slider -->
-  <section class="py-6 md:py-12 bg-gradient-to-b from-purple-100 to-pink-100">
-   <div class="container mx-auto px-4">
-    <h3 class="text-2xl md:text-4xl font-black text-center mb-4 md:mb-8 text-purple-600">🌟 داستان‌های ویژه</h3>
-    <div class="relative">
-     <div class="featured-slider" id="featuredSlider"><!-- Featured slides will be inserted here -->
-     </div><button id="prevSlide" class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-purple-600 w-10 h-10 md:w-14 md:h-14 rounded-full font-black text-xl md:text-3xl shadow-xl z-10 transition-all">❮</button> <button id="nextSlide" class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-purple-600 w-10 h-10 md:w-14 md:h-14 rounded-full font-black text-xl md:text-3xl shadow-xl z-10 transition-all">❯</button>
+<section class="py-6 md:py-12 bg-gradient-to-b from-purple-100 via-fuchsia-200 to-pink-100">
+  <div class="container mx-auto px-4">
+    <h3 class="text-2xl md:text-4xl font-black text-center mb-4 md:mb-8 text-purple-700">
+      🌟 داستان‌های ویژه
+    </h3>
+    <div class="relative overflow-hidden rounded-xl shadow-2xl">
+      
+      <!-- Slider wrapper -->
+      <div id="featuredSlider" class="featured-slider flex transition-transform duration-500 ease-in-out">
+        <!-- اسلایدها اینجا اضافه می‌شن -->
+      </div>
+
+      <!-- دکمه‌های ناوبری -->
+      <button id="nextSlide"
+        class="absolute top-1/2 right-3 transform -translate-y-1/2 bg-white/70 hover:bg-white hover:scale-110
+               text-purple-600 w-10 h-10 md:w-14 md:h-14 rounded-full font-black text-xl md:text-3xl
+               shadow-lg z-10 transition-all">
+        ❮
+      </button>
+      <button id="prevSlide"
+        class="absolute top-1/2 left-3 transform -translate-y-1/2 bg-white/70 hover:bg-white hover:scale-110
+               text-purple-600 w-10 h-10 md:w-14 md:h-14 rounded-full font-black text-xl md:text-3xl
+               shadow-lg z-10 transition-all">
+        ❯
+      </button>
+
+      <!-- ایندیکاتور پایین -->
+      <div id="sliderIndicators" class="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        <!-- دایره‌ها با JS ساخته می‌شن -->
+      </div>
     </div>
-   </div>
+  </div>
+</section>
   </section><!-- Search Bar -->
   <div id="searchBar" class="hidden bg-gradient-to-r from-purple-400 to-pink-400 py-4 md:py-6">
    <div class="container mx-auto px-4"><input type="text" id="searchInput" placeholder="🔍 دنبال چه داستانی میگردی؟" class="w-full px-4 py-3 md:px-6 md:py-4 rounded-full text-base md:text-xl font-semibold border-4 border-white shadow-2xl focus:outline-none focus:border-yellow-400 transition-all">
@@ -386,8 +453,8 @@
     <p id="footer-text" class="text-lg md:text-2xl text-white font-bold mb-3 md:mb-4">ساخته شده با ❤️ برای کودکان</p>
     <p class="text-white/90 font-semibold text-sm md:text-base">همه روزه داستان‌های جدید اضافه می‌شود!</p>
     <div class="flex gap-2 md:gap-4 justify-center mt-4 md:mt-6 flex-wrap">
-
-	<button id="aboutBtn" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-bold backdrop-blur-sm transition-all"> ℹ️ درباره ما </button>
+	
+	<button id="aboutBtn" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-bold backdrop-blur-sm transition-all"> ℹ️ درباره </button>
     </div>
    </div>
   </footer>
@@ -557,21 +624,21 @@
                 id: 3,
                 title: "روباه کوچولو و جادوی دوستی",
                 emoji: "🦊",
-                category: "educational",
-                categoryName: "آموزشی",
+                category: "friendship",
+                categoryName: "دوستی",
                 color: "from-orange-300 to-red-400",
                 summary: "روباهی که یاد گرفت دوست داشتن بهتر از تنها بودن است",
                 featured: false,
                 content: `تو یه جنگل سبز و قشنگ، روباه کوچولویی به اسم پوپو زندگی می‌کرد. پوپو خیلی باهوش بود و همیشه می‌تونست غذا پیدا کنه و از خطرها فرار کنه. ولی یه مشکلی داشت: هیچ دوستی نداشت! 
 
 پوپو فکر می‌کرد: "من که خودم می‌تونم از پس همه چیز بربیام. دوست داشتن و دوست داشتن شدن فقط وقت تلف کردنه!" 
-
+ <img src="https://s6.uupload.ir/files/روباه_و_معجزه_ی_دوستی1_1rs0.png" class="mx-auto  rounded-xl">
 همه حیوانات جنگل با هم دوست بودن. خرگوش‌ها با گورخرها بازی می‌کردن، پرنده‌ها با هم آواز می‌خوندن، سنجاب‌ها با میمون‌ها قلقلک بازی می‌کردن… اما پوپو همیشه تنها بود. 
 
 یه روز، یه طوفان بزرگ اومد. بارون می‌بارید، رعد و برق می‌زد و درختا تکون می‌خوردن. پوپو دوید سمت لونه‌ش، ولی وقتی رسید، دید یه درخت بزرگ روی لونه‌ش افتاده و همه چی خراب شده! 
 
 پوپو زیر یه بوته قایم شد، خیس و لرزون. خیلی تنها و سرد بود و نمی‌دونست چی کار کنه. شب که شد، از ترس و سرما نمی‌تونست بخوابه. 
-
+ <img src="https://s6.uupload.ir/files/روباه_و_معجزه_ی_دوستی2_7ae0.png" class="mx-auto  rounded-xl">
 صبح که شد، پوپو با شکم گرسنه و خسته راه افتاد و رسید به بخش جنگل که بقیه حیوانات اونجا بودن. همه مشغول کمک به هم بودن. 
 
 خرگوش‌ها برا پرنده‌هایی که لونه‌هاشون خراب شده بود غذا می‌آوردن. گورخرها شاخه‌ها رو جابجا می‌کردن. سنجاب‌ها آجیل جمع می‌کردن و به دوستاشون می‌دادن. 
@@ -582,7 +649,7 @@
 
 یه خرگوش کوچولو به اسم فرفری اومد پیشش و گفت:
 "پوپو! حالت خوب نیست! بیا کمکت کنم!" 
-
+ <img src="https://s6.uupload.ir/files/روباه_و_معجزه_ی_دوستی3_khz3.png" class="mx-auto  rounded-xl">
 پوپو با صدای ضعیف گفت:
 "چرا می‌خوای کمکم کنی؟ من که هیچ وقت با تو دوست نبودم!" 
 
@@ -605,7 +672,7 @@
 "من می‌خوام کمک کنم. می‌خوام دوست واقعی باشم." 
 
 و واقعاً هم همینطور شد. پوپو با زیرکی‌اش به حیوانات کمک می‌کرد غذا پیدا کنن و خطرها رو بشناسن. در عوض، همه بهش محبت، خنده و گرمای دوستی دادن. 
-
+ <img src="https://s6.uupload.ir/files/روباه_و_معجزه_ی_دوستی1_1rs0.png" class="mx-auto  rounded-xl">
 ماه‌ها گذشت و پوپو دیگه اون روباه تنها نبود. حالا دوستان زیادی داشت و هر روز با لبخند از خواب بیدار می‌شد. فهمید که زندگی با دوستان، هزار برابر بهتر از زندگی تنهاست.
 یه شب زمستونی، وقتی همه دور آتش جمع شده بودن و قصه می‌گفتن، فرفری گفت:
 "خوشحالم که الان اینجایی، پوپو!"
@@ -624,7 +691,7 @@
                 categoryName: "ماجراجویی",
                 color: "from-pink-300 to-purple-400",
                 summary: "ماجرای دختری که شد نگهبان رویاهای کودکان",
-                featured: true,
+                featured: false,
                 content: `در شهری آرام و زیبا، دختر کوچولویی به نام ستاره زندگی می‌کرد. هر شب قبل از خواب، ستاره به آسمان نگاه می‌کرد و با خودش زمزمه می‌کرد:
 «ای کاش می‌توانستم بروم و ستاره‌ها را از نزدیک ببینم!» 
 
@@ -1226,11 +1293,11 @@
                 categoryName: "آموزشی",
                 color: "from-cyan-300 to-blue-500",
                 summary: "کتابخانه‌داری که وارد دنیای جادویی کتاب‌ها شد",
-                featured: false,
+                featured: true,
                 content: `پوفی یک خرگوش کوچولوی سفید بود با گوش‌های نرم و لپ‌های صورتی. او هر روز صبح زود بیدار می‌شد، کش‌وقوسی به خودش می‌داد و جلوی آینه‌ی کوچکش می‌ایستاد. پوفی عاشق خندیدن بود، اما نمی‌دانست بعد از خوردن هویج و سیب، دندان‌هایش چقدر کار کرده‌اند و حالا نیاز به مراقبت دارند.
-
+<img src="https://s6.uupload.ir/files/پوفی_خرگوشه1_st9k.png" class="mx-auto  rounded-xl">
 وقتی روز رو به تمام شدن می‌رفت و خانه‌ی پوفی آرام می‌شد، دندان‌هایش کم‌کم احساس خستگی می‌کردند. خرده‌های غذا بینشان گیر کرده بود و دوست داشتند تمیز شوند. آن‌ها منتظر بودند تا پوفی یادش بیفتد قبل از خواب، به سراغشان بیاید.
-
+<img src="https://s6.uupload.ir/files/پوفی_خرگوشه2_s0q8.png" class="mx-auto  rounded-xl">
 روی لبه‌ی سینک، مسواک پوفی با حوصله ایستاده بود. مسواک می‌دانست کارش فقط تمیز کردن دندان‌ها نیست؛ او نگهبان لبخند پوفی بود. هر بار که پوفی دستش را به سمت او می‌برد، مسواک خوشحال می‌شد که دوباره می‌تواند کمک کند.
 
 آن شب، پوفی با کمک مامان‌خرگوش، کمی خمیردندان روی مسواک گذاشت. بوی خنک و شیرین خمیردندان در هوا پیچید و پوفی ذوق کرد. بعد مسواک را آرام داخل دهانش برد و شروع کرد به مسواک زدن، درست همان‌طور که یاد گرفته بود.
@@ -1240,7 +1307,7 @@
 پوفی گاهی مکث می‌کرد و به آینه نگاه می‌انداخت. قیافه‌اش بامزه و کمی جدی شده بود، چون می‌خواست کارش را خوب انجام دهد. او کم‌کم فهمیده بود مسواک زدن یعنی دوست داشتن خودت.
 
 بعد از تمام شدن مسواک، پوفی دهانش را با آب شست. آب خنک همه‌چیز را با خودش برد و دندان‌ها تمیز و براق شدند. پوفی لبخند زد و گوش‌هایش از خوشحالی کمی تکان خوردند.
-
+<img src="https://s6.uupload.ir/files/پوفی_خرگوشه3_c65r.png" class="mx-auto  rounded-xl">
 مامان‌خرگوش لبخند زد و گفت دندان‌های تمیز یعنی هویج‌های خوشمزه‌تر و خنده‌های بلندتر. پوفی حرف‌ها را کامل نمی‌فهمید، اما حس خوبی داشت و می‌دانست کار درستی انجام داده است.
 
 مسواک شسته شد و به لیوان خودش برگشت. حالا نوبت استراحتش بود. دندان‌های پوفی هم آرام گرفتند و آماده‌ی خواب شدند.
@@ -1370,6 +1437,8 @@
 			
 
         }
+		
+
 		function renderBanner() {
   const container = document.getElementById('storiesContainer');
 
@@ -1434,59 +1503,81 @@
 
 
 
-        function showFullscreenReader(storyId) {
-    const story = stories.find(s => s.id === storyId);
+       function showFullscreenReader(storyId) {
+  const story = stories.find(s => s.id === storyId);
 
-    if (!readStories.includes(storyId)) {
-        readStories.push(storyId);
-        localStorage.setItem('readStories', JSON.stringify(readStories));
-        renderStories();
-    }
+  if (!readStories.includes(storyId)) {
+    readStories.push(storyId);
+    localStorage.setItem('readStories', JSON.stringify(readStories));
+    renderStories();
+  }
 
-    const reader = document.createElement('div');
-    reader.className = 'fullscreen-reader fixed inset-0 bg-black/50 backdrop-blur-sm z-50 overflow-auto';
-    reader.innerHTML = `
-        <div class="container mx-auto px-4 py-8 max-w-4xl h-full overflow-auto">
-            <div class="flex justify-between items-center mb-6">
-                <button class="close-reader bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-full font-bold text-lg backdrop-blur-sm transition-all">
-                    ✕ بستن
-                </button>
-                <button class="print-story bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-full font-bold text-lg backdrop-blur-sm transition-all">
-                    🖨️ چاپ
-                </button>
-            </div>
-            
-            <div class="bg-white/95 backdrop-blur-lg rounded-3xl p-6 md:p-12 shadow-2xl">
-                <div class="text-center mb-8">
-                    <div class="text-8xl md:text-9xl mb-6 animate-bounce-slow">${story.emoji}</div>
-                    <h2 class="text-3xl md:text-6xl font-black text-purple-600 mb-4">${story.title}</h2>
-                    <div class="bg-gradient-to-r ${story.color} px-6 py-2 rounded-full inline-block">
-                        <span class="text-white font-bold text-lg">${story.categoryName}</span>
-                    </div>
-                </div>
-                
-                <div class="prose prose-lg md:prose-xl max-w-none">
-                    <p class="text-xl md:text-2xl leading-relaxed text-gray-800 font-semibold whitespace-pre-line text-right">${story.content}</p>
-                </div>
-            </div>
+  const reader = document.createElement('div');
+  reader.className = 'fullscreen-reader fixed inset-0 bg-black/50 backdrop-blur-sm z-50 overflow-auto p-4';
+
+  reader.innerHTML = `
+    <div class="absolute inset-0 pointer-events-none">
+      <!-- تزئینات -->
+      <div class="absolute top-10 left-10 text-yellow-300 text-2xl opacity-40">⭐</div>
+      <div class="absolute bottom-20 right-16 text-white text-xl opacity-30">✨</div>
+      <div class="absolute top-1/3 right-1/4 text-pink-200 text-3xl opacity-30">🌟</div>
+      <div class="absolute top-1/2 left-1/3 w-24 h-24 bg-purple-300/20 rounded-full blur-2xl"></div>
+      <div class="absolute bottom-1/4 right-1/3 w-32 h-32 bg-blue-300/20 rounded-full blur-2xl"></div>
+    </div>
+
+    <div id="story-content" class="bg-white/90 rounded-3xl shadow-3xl p-6 md:p-12 max-w-4xl w-full animate-fadeInUp relative mx-auto">
+
+      <!-- دکمه‌های بالا -->
+      <button class="close-reader fixed top-4 right-4 bg-red-500 hover:bg-red-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all z-50">✕</button>
+      <button class="share-story fixed top-4 left-4 bg-blue-500 hover:bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all z-50">📤</button>
+
+      <!-- محتوای داستان -->
+      <div class="text-center mb-8 mt-6">
+        <div class="text-8xl md:text-9xl mb-6 animate-bounce-slow">${story.emoji}</div>
+        <h2 class="text-4xl md:text-6xl font-extrabold text-purple-700 mb-4">${story.title}</h2>
+        <div class="bg-gradient-to-r ${story.color} px-6 py-2 rounded-full inline-block shadow-md">
+          <span class="text-white font-bold text-lg">${story.categoryName}</span>
         </div>
-    `;
+      </div>
 
-    document.body.appendChild(reader);
+      <div class="prose prose-lg md:prose-xl max-w-none text-right">
+        <p class="text-xl md:text-2xl leading-relaxed text-gray-800 font-semibold whitespace-pre-line">${story.content}</p>
+      </div>
+    </div>
+  `;
 
-    // اضافه کردن state جدید به history
-    history.pushState({ fullscreen: true }, "", "#story-" + storyId);
+  document.body.appendChild(reader);
 
-    // دکمه‌ی بستن
-    reader.querySelector('.close-reader').addEventListener('click', () => {
-        reader.remove();
-        history.back(); // فقط یک بار عقب برو
-    });
+  // اضافه کردن state جدید به history
+  history.pushState({ fullscreen: true }, "", "#story-" + storyId);
 
-    // دکمه‌ی چاپ
-    reader.querySelector('.print-story').addEventListener('click', () => {
-        window.print();
-    });
+  // دکمه‌ی بستن
+  reader.querySelector('.close-reader').addEventListener('click', () => {
+    reader.remove();
+    history.back();
+  });
+
+  // دکمه‌ی اشتراک‌گذاری
+  reader.querySelector('.share-story').addEventListener('click', async () => {
+    const shareData = {
+      title: story.title,
+      text: "این داستان رو ببین 🌟",
+      url: window.location.href
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        alert("داستان با موفقیت اشتراک‌گذاری شد!");
+      } catch (err) {
+        console.error("خطا در اشتراک‌گذاری:", err);
+      }
+    } else {
+      // اگر مرورگر پشتیبانی نکنه، لینک کپی بشه
+      navigator.clipboard.writeText(window.location.href);
+      alert("لینک داستان کپی شد ✅");
+    }
+  });
 }
 
 // کنترل دکمه‌ی بازگشت گوشی/مرورگر
@@ -1494,70 +1585,8 @@ window.addEventListener('popstate', (event) => {
     const reader = document.querySelector('.fullscreen-reader');
     if (event.state && event.state.fullscreen && reader) {
         reader.remove();
-    }
-});function showFullscreenReader(storyId) {
-    const story = stories.find(s => s.id === storyId);
-
-    if (!readStories.includes(storyId)) {
-        readStories.push(storyId);
-        localStorage.setItem('readStories', JSON.stringify(readStories));
-        renderStories();
-    }
-
-    const reader = document.createElement('div');
-    reader.className = 'fullscreen-reader fixed inset-0 bg-black/50 backdrop-blur-sm z-50 overflow-auto';
-    reader.innerHTML = `
-        <div class="container mx-auto px-4 py-8 max-w-4xl h-full overflow-auto">
-            <div class="flex justify-between items-center mb-6">
-                <button class="close-reader bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-full font-bold text-lg backdrop-blur-sm transition-all">
-                    ✕ بستن
-                </button>
-                <button class="print-story bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-full font-bold text-lg backdrop-blur-sm transition-all">
-                    🖨️ چاپ
-                </button>
-            </div>
-            
-            <div class="bg-white/95 backdrop-blur-lg rounded-3xl p-6 md:p-12 shadow-2xl">
-                <div class="text-center mb-8">
-                    <div class="text-8xl md:text-9xl mb-6 animate-bounce-slow">${story.emoji}</div>
-                    <h2 class="text-3xl md:text-6xl font-black text-purple-600 mb-4">${story.title}</h2>
-                    <div class="bg-gradient-to-r ${story.color} px-6 py-2 rounded-full inline-block">
-                        <span class="text-white font-bold text-lg">${story.categoryName}</span>
-                    </div>
-                </div>
-                
-                <div class="prose prose-lg md:prose-xl max-w-none">
-                    <p class="text-xl md:text-2xl leading-relaxed text-gray-800 font-semibold whitespace-pre-line text-right">${story.content}</p>
-                </div>
-            </div>
-        </div>
-    `;
-
-    document.body.appendChild(reader);
-
-    // اضافه کردن state جدید به history
-    history.pushState({ fullscreen: true }, "", "#story-" + storyId);
-
-    // دکمه‌ی بستن
-    reader.querySelector('.close-reader').addEventListener('click', () => {
-        reader.remove();
-        history.back(); // فقط یک بار عقب برو
-    });
-
-    // دکمه‌ی چاپ
-    reader.querySelector('.print-story').addEventListener('click', () => {
-        window.print();
-    });
-}
-
-// کنترل دکمه‌ی بازگشت گوشی/مرورگر
-window.addEventListener('popstate', (event) => {
-    const reader = document.querySelector('.fullscreen-reader');
-    if (event.state && event.state.fullscreen && reader) {
-        reader.remove();
-    }
+  }
 });
-
         function showToast(message) {
             const toast = document.createElement('div');
             toast.className = 'toast';
@@ -1695,4 +1724,3 @@ window.addEventListener('popstate', (event) => {
     </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b7e201416a2eda3',t:'MTc2NzM5NzQ3Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
-
