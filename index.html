@@ -1335,6 +1335,13 @@
 قصه‌ی پوفی به ما یاد می‌دهد که مراقبت از دندان‌ها کار ساده‌ای است، اما خیلی مهم است. وقتی هر روز بعد از غذا دندان‌هایمان را مسواک می‌زنیم، آن‌ها سالم و قوی می‌مانند و لبخند ما همیشه روشن و شاداب می‌ماند. مثل پوفی، ما هم می‌توانیم با کمی حوصله و نظم، از خودمان و چیزهای کوچک که دوستشان داریم مراقبت کنیم، و این عادت‌های خوب باعث می‌شوند که هم سلامت بمانیم و هم خوشحال.`
             }
         ];
+		
+		const storyContentMap = {};
+stories.forEach(s => {
+  storyContentMap[s.id] = s.content;
+  delete s.content;
+});
+
 
         const defaultConfig = {
             site_title: "شهر قصه",
@@ -1591,7 +1598,7 @@ function renderBanner() {
       <!-- متن داستان -->
       <div class="prose prose-lg md:prose-xl max-w-none text-right">
         <p class="whitespace-pre-line text-gray-800 font-semibold leading-relaxed">
-          ${story.content}
+         ${storyContentMap[storyId]}
         </p>
       </div>
 
