@@ -68,6 +68,24 @@
             0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
             100% { transform: translateY(-100px) translateX(50px) rotate(360deg); opacity: 0; }
         }
+		@keyframes slideUpFade {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideDownFade {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(40px); opacity: 0; }
+}
+
+.reader-enter {
+  animation: slideUpFade 0.4s ease-out forwards;
+}
+
+.reader-exit {
+  animation: slideDownFade 0.35s ease-in forwards;
+}
+
 
         .animate-fadeInUp {
             animation: fadeInUp 0.8s ease-out forwards;
@@ -325,9 +343,6 @@
    <nav class="container mx-auto px-3 py-3 md:px-4 md:py-4">
     <div class="flex items-center justify-between">
      <div class="flex items-center gap-2 md:gap-3">
-      <div class="text-3xl md:text-5xl animate-bounce-slow">
-       🌃
-      </div>
       <div>
        <h1 id="site-title" class="text-xl md:text-3xl font-black text-white drop-shadow-lg">شهر قصه</h1>
        <p id="site-subtitle" class="text-xs md:text-sm text-white/90 font-semibold hidden sm:block">دنیای جادویی داستان‌ها</p>
@@ -1292,7 +1307,7 @@
                 category: "educational",
                 categoryName: "آموزشی",
                 color: "from-cyan-300 to-blue-500",
-                summary: "کتابخانه‌داری که وارد دنیای جادویی کتاب‌ها شد",
+                summary: "راز لبخند زیبای پوفی",
                 featured: true,
                 content: `پوفی یک خرگوش کوچولوی سفید بود با گوش‌های نرم و لپ‌های صورتی. او هر روز صبح زود بیدار می‌شد، کش‌وقوسی به خودش می‌داد و جلوی آینه‌ی کوچکش می‌ایستاد. پوفی عاشق خندیدن بود، اما نمی‌دانست بعد از خوردن هویج و سیب، دندان‌هایش چقدر کار کرده‌اند و حالا نیاز به مراقبت دارند.
 <img src="https://s6.uupload.ir/files/پوفی_خرگوشه1_st9k.png" class="mx-auto  rounded-xl">
@@ -1527,80 +1542,139 @@ function renderBanner() {
 
 
 
-       function showFullscreenReader(storyId) {
+      function showFullscreenReader(storyId) {
+  if (document.querySelector(".fullscreen-reader")) return;
+
   const story = stories.find(s => s.id === storyId);
 
   if (!readStories.includes(storyId)) {
     readStories.push(storyId);
-    localStorage.setItem('readStories', JSON.stringify(readStories));
+    localStorage.setItem("readStories", JSON.stringify(readStories));
     renderStories();
   }
 
-  const reader = document.createElement('div');
-  reader.className = 'fullscreen-reader fixed inset-0 bg-black/50 backdrop-blur-sm z-50 overflow-auto p-4';
+  // قفل اسکرول پشت
+  document.body.style.overflow = "hidden";
+
+  const reader = document.createElement("div");
+  reader.className =
+    "fullscreen-reader fixed inset-0 bg-black/50 backdrop-blur-sm z-50 overflow-auto p-4";
 
   reader.innerHTML = `
-    <div class="absolute inset-0 pointer-events-none">
-      <!-- تزئینات -->
-      <div class="absolute top-10 left-10 text-yellow-300 text-2xl opacity-40">⭐</div>
-      <div class="absolute bottom-20 right-16 text-white text-xl opacity-30">✨</div>
-      <div class="absolute top-1/3 right-1/4 text-pink-200 text-3xl opacity-30">🌟</div>
-      <div class="absolute top-1/2 left-1/3 w-24 h-24 bg-purple-300/20 rounded-full blur-2xl"></div>
-      <div class="absolute bottom-1/4 right-1/3 w-32 h-32 bg-blue-300/20 rounded-full blur-2xl"></div>
+    <!-- Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1 bg-white/20 z-50">
+      <div id="reader-progress" class="h-full bg-yellow-400 w-0 transition-all"></div>
     </div>
 
-    <div id="story-content" class="bg-white/90 rounded-3xl shadow-3xl p-6 md:p-12 max-w-4xl w-full animate-fadeInUp relative mx-auto">
+    <div id="story-content"
+         class="bg-white/95 rounded-3xl shadow-3xl p-6 md:p-12
+                max-w-4xl w-full mx-auto mt-10 relative reader-enter">
 
-      <!-- دکمه‌های بالا -->
-      <button class="close-reader fixed top-4 right-4 bg-red-500 hover:bg-red-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all z-50">✕</button>
-      <button class="share-story fixed top-4 left-4 bg-blue-500 hover:bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all z-50">📤</button>
+      <!-- دکمه‌ها -->
+      <button class="close-reader fixed top-4 right-4 bg-red-500 text-white
+                     w-12 h-12 rounded-full shadow-lg z-50">✕</button>
 
-      <!-- محتوای داستان -->
-      <div class="text-center mb-8 mt-6">
-        <div class="text-8xl md:text-9xl mb-6 animate-bounce-slow">${story.emoji}</div>
-        <h2 class="text-4xl md:text-6xl font-extrabold text-purple-700 mb-4">${story.title}</h2>
-        <div class="bg-gradient-to-r ${story.color} px-6 py-2 rounded-full inline-block shadow-md">
-          <span class="text-white font-bold text-lg">${story.categoryName}</span>
+      <!-- هدر -->
+      <div class="text-center mb-10">
+        <div class="text-8xl mb-4 animate-bounce-slow">${story.emoji}</div>
+        <h2 class="text-4xl md:text-6xl font-extrabold text-purple-700 mb-4">
+          ${story.title}
+        </h2>
+        <div class="inline-block bg-gradient-to-r ${story.color}
+                    px-6 py-2 rounded-full text-white font-bold">
+          ${story.categoryName}
         </div>
       </div>
 
+      <!-- متن داستان -->
       <div class="prose prose-lg md:prose-xl max-w-none text-right">
-        <p class="text-xl md:text-2xl leading-relaxed text-gray-800 font-semibold whitespace-pre-line">${story.content}</p>
+        <p class="whitespace-pre-line text-gray-800 font-semibold leading-relaxed">
+          ${story.content}
+        </p>
       </div>
-    </div>
+
+      <!-- پایان داستان -->
+      <div class="mt-16 text-center">
+  <div class="text-4xl mb-4">🎉📚✨</div>
+
+  <h3 class="text-2xl md:text-3xl font-extrabold text-purple-700 mb-4">
+    آفرین! داستان تموم شد
+  </h3>
+
+  <div class="flex justify-center gap-4 flex-wrap mt-6">
+    <button class="next-story bg-green-500 hover:bg-green-600
+                   text-white px-6 py-3 rounded-full font-bold shadow-lg">
+      قصه بعدی ➜
+    </button>
+
+    <button class="share-story bg-blue-500 hover:bg-blue-600
+                   text-white px-6 py-3 rounded-full font-bold shadow-lg">
+      اشتراک‌گذاری 📤
+    </button>
+
+    <button class="back-to-list bg-gray-300 hover:bg-gray-400
+                   text-gray-800 px-6 py-3 rounded-full font-bold shadow-lg">
+      بازگشت به لیست
+    </button>
+  </div>
+</div>
+
   `;
 
   document.body.appendChild(reader);
 
-  // اضافه کردن state جدید به history
+  // history
   history.pushState({ fullscreen: true }, "", "#story-" + storyId);
 
-  // دکمه‌ی بستن
-  reader.querySelector('.close-reader').addEventListener('click', () => {
-    reader.remove();
-   history.replaceState(null, "", window.location.pathname);
+  // Progress bar
+  reader.addEventListener("scroll", () => {
+    const content = reader.querySelector("#story-content");
+    const progress = document.getElementById("reader-progress");
+    const scrollTop = reader.scrollTop;
+    const scrollHeight = content.scrollHeight - window.innerHeight;
+    const percent = Math.min(100, (scrollTop / scrollHeight) * 100);
+    progress.style.width = percent + "%";
   });
 
-  // دکمه‌ی اشتراک‌گذاری
-  reader.querySelector('.share-story').addEventListener('click', async () => {
-    const shareData = {
-      title: story.title,
-      text: "این داستان رو ببین 🌟",
-      url: window.location.href
-    };
+  // بستن Reader
+  function closeReader() {
+    const content = document.getElementById("story-content");
+    content.classList.remove("reader-enter");
+    content.classList.add("reader-exit");
 
-    if (navigator.share) {
-      try {
-        await navigator.share(shareData);
-        alert("داستان با موفقیت اشتراک‌گذاری شد!");
-      } catch (err) {
-        console.error("خطا در اشتراک‌گذاری:", err);
-      }
-    } else {
-      // اگر مرورگر پشتیبانی نکنه، لینک کپی بشه
-      navigator.clipboard.writeText(window.location.href);
-      alert("لینک داستان کپی شد ✅");
-    }
+    setTimeout(() => {
+      reader.remove();
+      document.body.style.overflow = "";
+      history.replaceState(null, "", window.location.pathname);
+    }, 350);
+  }
+
+reader.querySelector(".share-story").addEventListener("click", async () => {
+  const shareData = {
+    title: story.title,
+    text: "این داستان قشنگ رو ببین 🌈✨",
+    url: window.location.href
+  };
+
+  if (navigator.share) {
+    try {
+      await navigator.share(shareData);
+    } catch (err) {}
+  } else {
+    navigator.clipboard.writeText(window.location.href);
+    alert("لینک داستان کپی شد ✅");
+  }
+});
+
+  reader.querySelector(".close-reader").addEventListener("click", closeReader);
+
+  reader.querySelector(".back-to-list").addEventListener("click", closeReader);
+
+  reader.querySelector(".next-story").addEventListener("click", () => {
+    closeReader();
+    const currentIndex = stories.findIndex(s => s.id === storyId);
+    const next = stories[currentIndex + 1] || stories[0];
+    setTimeout(() => showFullscreenReader(next.id), 400);
   });
 }
 
